@@ -4,7 +4,9 @@ RSpec.describe User, type: :model do
   before do
     @user = User.new(
       name: "Yosuke Nakaguchi",
-      email: "yosuke.nakaguchi@gmail.com"
+      email: "yosuke.nakaguchi@gmail.com",
+      password: "foobar",
+      password_confirmation: "foobar"
       )
   end
 
@@ -62,5 +64,18 @@ RSpec.describe User, type: :model do
     @user.save
     expect(mixed_case_email.downcase). to eq @user.reload.email
   end
+
+  it "is invalid without a password" do
+    @user.password = @user.password_confirmation =" " * 6
+    @user.valid?
+    expect(@user.errors[:password]).to include("can't be blank")
+  end
+
+  it "パスワードが5文字以下の場合は登録できない" do
+    @user.password = @user.password_confirmation ="a" * 5
+    @user.valid?
+    expect(@user.errors[:password]).to include('is too short (minimum is 6 characters)')
+  end
+
 end
   
