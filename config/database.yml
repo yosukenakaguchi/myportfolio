@@ -38,4 +38,4 @@ production:
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   database: myportfolio_production
   username: myportfolio
-  password: <%= ENV['SAMPLE_APP_DATABASE_PASSWORD'] %>
+  password: <%= ENV['MYPORTFOLIO_DATABASE_PASSWORD'] %>
