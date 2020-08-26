@@ -31,11 +31,11 @@ test:
   host: localhost
 
 production:
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # https://railsguides.jp/configuring.html#データベース接続をプールする
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   database: myportfolio_production
-  pool: 5
   username: myportfolio
-  password: 
-  host: localhost
+  password: <%= ENV['SAMPLE_APP_DATABASE_PASSWORD'] %>
