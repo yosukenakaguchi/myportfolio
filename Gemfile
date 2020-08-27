@@ -7,6 +7,7 @@ ruby '2.7.1'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
 gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
 gem 'jquery-rails', '~> 4.4'
+gem 'jquery-turbolinks'
 gem 'bcrypt', '~> 3.1', '>= 3.1.15'
 # Use mysql as the database for Active Record
 gem 'mysql2', '>= 0.5.2'
