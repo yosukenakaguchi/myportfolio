@@ -9,6 +9,9 @@ gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
 gem 'jquery-rails', '~> 4.4'
 gem 'jquery-turbolinks'
 gem 'bcrypt', '~> 3.1', '>= 3.1.15'
+gem 'faker', '~> 2.13'
+gem 'will_paginate', '~> 3.3'
+gem 'bootstrap-will_paginate', '~> 1.0'
 # Use mysql as the database for Active Record
 gem 'mysql2', '>= 0.5.2'
 # Use Puma as the app server
