@@ -1,0 +1,15 @@
+<li id="recipe-<%= recipe.id %>">
+  <%= link_to gravatar_for(recipe.user, size: 50), recipe.user %>
+  <span class="user"><%= link_to recipe.user.name, recipe.user %></span>
+  <span class="content">
+  <%= recipe.content %>
+  <%= image_tag recipe.display_image if recipe.image.attached? %>
+  </span>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(recipe.created_at) %> ago.
+    <% if current_user?(recipe.user) %>
+      <%= link_to "delete", recipe, method: :delete,
+                                       data: { confirm: "You sure?" } %>
+    <% end %>
+  </span>
+</li>

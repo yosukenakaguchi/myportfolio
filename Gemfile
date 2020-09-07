@@ -12,6 +12,9 @@ gem 'bcrypt', '~> 3.1', '>= 3.1.15'
 gem 'faker', '~> 2.13'
 gem 'will_paginate', '~> 3.3'
 gem 'bootstrap-will_paginate', '~> 1.0'
+gem 'active_storage_validations', '~> 0.9.0'
+gem 'image_processing', '~> 1.11'
+gem 'mini_magick', '~> 4.10', '>= 4.10.1'
 # Use mysql as the database for Active Record
 gem 'mysql2', '>= 0.5.2'
 # Use Puma as the app server
