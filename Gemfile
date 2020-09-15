@@ -5,7 +5,7 @@ ruby '2.7.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
-gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
+gem 'bootstrap', '~> 4.5', '>= 4.5.2'
 gem 'jquery-rails', '~> 4.4'
 gem 'jquery-turbolinks'
 gem 'bcrypt', '~> 3.1', '>= 3.1.15'

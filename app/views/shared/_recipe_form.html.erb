@@ -1,13 +1,64 @@
 <%= form_with(model: @recipe, local: true) do |f| %>
-    <%= render 'shared/error_messages', object: f.object %>
-    <div class="field">
-      <%= f.text_area :content, placeholder: "Compose new recipe..." %>
+  <form>
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">            
+          <%= f.label :料理名 %>
+          <%= f.text_field :ingredient, placeholder: "料理名を入力してください", class: 'form-control' %>          
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group">
+          <%= f.label :料理写真 %>
+          <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+        </div>
+      </div>
     </div>
-    <%= f.submit "Post", class: "btn btn-primary" %>
-    <span class="image">
-    <%= f.file_field :image, accept: "image/jpeg,image/gif,image/png" %>
-    </span>
-  <% end %>
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">            
+          <%= f.label :紹介文 %>
+          <%= f.text_field :content, placeholder: "紹介文", class: 'form-control' %>          
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">            
+          <%= f.label :作品名 %>
+          <%= f.text_field :work_name, placeholder: "例:料理が登場する作品名を入力してください", class: 'form-control' %>          
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">            
+          <%= f.label :作者 %>
+          <%= f.text_field :author, placeholder: "例:料理が登場する作品の監督や作者を入力してください", class: 'form-control' %>
+        </div>  
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">            
+          <%= f.label :材料・調味料 %>
+          <%= f.text_field :ingredient, placeholder: "例:鶏むね肉", class: 'form-control' %>          
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">            
+          <%= f.label :分量 %>
+          <%= f.text_field :amount, placeholder: "例:200g", class: 'form-control' %>
+        </div>  
+      </div>
+    </div>
+    <div class="row">
+    <div class="col-12">
+      <div class="form-group">            
+        <%= f.label :作り方 %>
+        <%= f.text_field :content,　placeholder: "作り方を入力してください", class: 'form-control' %>          
+      </div>
+    </div>
+  </form>
+<% end %>
 
 <script type="text/javascript">
   $("recipe_image").bind("change", function() {
