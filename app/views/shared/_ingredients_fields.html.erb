@@ -1,0 +1,17 @@
+<div class="nested-fields">
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">            
+        <%= f.text_field :ingredient, placeholder: "例:鶏むね肉", class: 'form-control' %>          
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="form-group">
+        <%= f.text_field :amount, placeholder: "例:200g", class: 'form-control' %>
+      </div>
+    </div>
+    <div class="col-2">
+    <%= link_to_remove_association '削除', f %>
+    </div>
+  </div>
+</div>

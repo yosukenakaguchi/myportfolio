@@ -1,10 +1,11 @@
 <%= form_with(model: @recipe, local: true) do |f| %>
   <form>
+  <div class="left jumbotron">
     <div class="row">
       <div class="col-6">
         <div class="form-group">            
           <%= f.label :料理名 %>
-          <%= f.text_field :ingredient, placeholder: "料理名を入力してください", class: 'form-control' %>          
+          <%= f.text_field :title, placeholder: "料理名を入力してください", class: 'form-control' %>          
         </div>
       </div>
       <div class="col-4">
@@ -14,6 +15,7 @@
         </div>
       </div>
     </div>
+
     <div class="row">
       <div class="col-12">
         <div class="form-group">            
@@ -22,6 +24,7 @@
         </div>
       </div>
     </div>
+
     <div class="row">
       <div class="col-6">
         <div class="form-group">            
@@ -36,27 +39,45 @@
         </div>  
       </div>
     </div>
+
     <div class="row">
       <div class="col-6">
-        <div class="form-group">            
-          <%= f.label :材料・調味料 %>
-          <%= f.text_field :ingredient, placeholder: "例:鶏むね肉", class: 'form-control' %>          
+        <div class="left jumbotron">
+          <div class="row">
+            <div class="col-12">
+              <div class="d-inline p-3">作り方</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.fields_for :how_to_makes do |how_to_make| %>
+              <%= render 'shared/how_to_makes_fields', f: how_to_make %>
+            <% end %>
+            <%= link_to_add_association '追加',f, :how_to_makes, partial: 'shared/how_to_makes_fields' %>
+          </div>
         </div>
       </div>
       <div class="col-6">
-        <div class="form-group">            
-          <%= f.label :分量 %>
-          <%= f.text_field :amount, placeholder: "例:200g", class: 'form-control' %>
-        </div>  
+        <div class="left jumbotron">
+          <div class="row">
+            <div class="col-6">
+              <div class="d-inline p-3">材料・調味料</div>
+            </div>
+            <div class="col-4">      
+              <div class="d-inline p-3">分量</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.fields_for :ingredients do |ingredient| %>
+              <%= render 'shared/ingredients_fields', f: ingredient %>
+            <% end %>
+          <%= link_to_add_association '追加',f, :ingredients, partial: 'shared/ingredients_fields' %>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="row">
-    <div class="col-12">
-      <div class="form-group">            
-        <%= f.label :作り方 %>
-        <%= f.text_field :content,　placeholder: "作り方を入力してください", class: 'form-control' %>          
-      </div>
-    </div>
+
+    <%= f.submit "Post", class: "btn btn-primary" %>
+  </div>
   </form>
 <% end %>
 
