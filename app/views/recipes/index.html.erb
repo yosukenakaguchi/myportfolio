@@ -1,0 +1,15 @@
+<div class="card-columns">
+  <% @recipes.each do |recipe| %> 
+    <div class="card">
+      <%= link_to recipe_path(recipe) do %>
+        <%= image_tag recipe.image, class:"card-img" if recipe.image.attached? %>
+      <% end %>
+      <div class="card-body">
+        <p class="card-title"><%= recipe.title %></p>
+        <div class="card_work_tag"><%= recipe.work %></div>
+        <div class="card_author_tag"><%= recipe.author %></div>
+      </div>
+    </div>
+  <% end %>
+</div>
+<%= paginate @recipes %>

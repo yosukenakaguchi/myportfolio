@@ -14,6 +14,10 @@ class Recipe < ApplicationRecord
                                       message: "should be less than 5MB" }
 
   def display_image
-    image.variant(resize_to_limit: [500, 500])
+    image.variant(resize_to_fit: [300, 200])
+  end
+
+  def bookmark_by?(user)
+    bookmarks.where(user_id: user.id).exists?
   end
 end
