@@ -23,7 +23,15 @@ end
 users = User.order(:created_at).take(6)
 50.times do
   content = Faker::Lorem.sentence(word_count: 5)
-  users.each { |user| user.recipes.create!(content: content) }
+  title = Faker::Food.dish
+  work = Faker::Book.title
+  author = Faker::Book.author
+  ingredient = Faker::Food.ingredient
+  amount = Faker::Food.measurement
+  how_to_make = Faker::Food.description
+  users.each { |user| user.recipes.create!(content: content, title: title, work: work, author: author,
+                                           ingredients_attributes:[ingredient: ingredient, amount: amount],
+                                           how_to_makes_attributes:[content: how_to_make]) }
 end
 
 # 以下のリレーションシップを作成する
