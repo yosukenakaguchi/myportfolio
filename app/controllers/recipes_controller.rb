@@ -11,9 +11,11 @@ class RecipesController < ApplicationController
     3.times { @recipe.ingredients.build }
     3.times { @recipe.how_to_makes.build }
   end
-
+  
   def show
     @recipe = Recipe.find_by(id:params[:id])
+    @comment = Comment.new
+    @comments = @recipe.comments.includes(:user)
   end
 
   def edit
@@ -52,7 +54,7 @@ class RecipesController < ApplicationController
   private
 
     def recipe_params
-      params.require(:recipe).permit(:title, :image, :content, :work, :author, 
+      params.require(:recipe).permit(:title, :image, :content, :work, :author,
                                       ingredients_attributes: [:id, :ingredient, :amount, :_destroy],
                                       how_to_makes_attributes: [:id, :content, :_destroy])
     end

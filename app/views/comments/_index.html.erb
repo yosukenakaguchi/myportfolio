@@ -1,0 +1,9 @@
+<% comments.each do |comment| %>
+    <% unless comment.id.nil? %>
+        <p><%= link_to "#{comment.user.name}さん", user_path(comment.user.id) %><%= comment.created_at.to_s(:datetime_jp) %></p>
+        <p class="comment_content"><%= comment.content %></p>
+        <% if comment.user == current_user %>
+            <p><%= link_to 'delete', recipe_comment_path(comment.recipe_id, comment.id), method: :delete, remote: true %></p>
+        <% end %>
+    <% end %>
+<% end %>

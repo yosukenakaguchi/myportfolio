@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'favorites/create'
+  get 'favorites/destroy'
   get 'password_resets/new'
   get 'password_resets/edit'
   root   'static_pages#home'
@@ -16,5 +18,11 @@ Rails.application.routes.draw do
       get :following, :followers
     end
   end
-  resources :relationships,       only: [:create, :destroy]
+  resources :relationships, only: [:create, :destroy]
+  resources :recipes do  
+    resources :comments
+  end
+  resources :recipes do
+    resources :favorites, only: [:create, :destroy]
+  end
 end

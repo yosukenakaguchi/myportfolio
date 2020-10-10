@@ -7,7 +7,6 @@ ruby '2.7.1'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
 gem 'bootstrap', '~> 4.5', '>= 4.5.2'
 gem 'jquery-rails', '~> 4.4'
-gem 'jquery-turbolinks'
 gem 'bcrypt', '~> 3.1', '>= 3.1.15'
 gem 'faker', '~> 2.13'
 gem 'kaminari', '~> 1.2', '>= 1.2.1'
@@ -24,7 +23,6 @@ gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 4.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production

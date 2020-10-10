@@ -5,7 +5,11 @@
         <%= image_tag recipe.image, class:"card-img" if recipe.image.attached? %>
       <% end %>
       <div class="card-body">
-        <p class="card-title"><%= link_to recipe.title, recipe_path(recipe)%></p>
+        <span class="card-title"><%= link_to recipe.title, recipe_path(recipe)%></span>
+        <span id="likes_buttons_<%= recipe.id %>" class="float-right">
+          <%= render partial: 'favorites/favorite', locals: { recipe: recipe} %>
+        </span>
+        <br>
         <div class="card_work_tag"><%= recipe.work %></div>
         <div class="card_author_tag"><%= recipe.author %></div>
       </div>
