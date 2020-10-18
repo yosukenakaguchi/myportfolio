@@ -1,0 +1,1 @@
+document.getElementById("likes_buttons_#{@recipe.id}").innerHTML = "#{j(render partial: 'favorites/favorite', locals: {recipe: @recipe})}";

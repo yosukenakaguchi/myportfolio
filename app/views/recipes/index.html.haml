@@ -1,0 +1,13 @@
+.card-columns
+  - @recipes.each do |recipe|
+    .card
+      = link_to recipe_path(recipe) do
+        = image_tag recipe.image, class:"card-img" if recipe.image.attached?
+      .card-body
+        %span.card-title= link_to recipe.title, recipe_path(recipe)
+        %span.float-right{:id => "likes_buttons_#{recipe.id}"}
+          = render partial: 'favorites/favorite', locals: { recipe: recipe}
+        %br/
+        .card_work_tag= recipe.work
+        .card_author_tag= recipe.author
+= paginate @recipes

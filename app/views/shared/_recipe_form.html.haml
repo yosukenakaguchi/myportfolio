@@ -1,0 +1,70 @@
+= form_with(model: @recipe, local: true) do |f|
+  = render 'shared/error_messages', object: f.object
+  %form
+    .left.jumbotron
+      .row
+        .col-6
+          .form-group
+            = f.label :料理名
+            = f.text_field :title, placeholder: "料理名を入力してください", class: 'form-control'
+        .col-4
+          .form-group
+            = f.label :料理写真
+            = f.file_field :image, accept: 'image/jpeg,image/gif,image/png'
+      .row
+        .col-6
+          .form-group
+            = f.label :作品名
+            = f.text_field :work, placeholder: "例:料理が登場する作品名を入力してください", class: 'form-control'
+        .col-6
+          .form-group
+            = f.label :作者
+            = f.text_field :author, placeholder: "例:料理が登場する作品の監督や作者を入力してください", class: 'form-control'
+      .row
+        .col-12
+          %h2.content_title 紹介文
+          .content
+            .form-group
+              = f.text_area :content, placeholder: "紹介文", class: 'form-control', id: "input-text"
+              %p#counter 0/255words
+      .row
+        .col-12
+          %h2.ingredients_list_title 材料・調味料
+      .ingredients_list
+        .row
+          .col-12
+            .form-group
+              = f.fields_for :ingredients do |ingredient|
+                = render 'shared/ingredients_fields', f: ingredient
+              = link_to_add_association f, :ingredients, partial: 'shared/ingredients_fields' do
+                %i.fa.fa-plus-circle
+                %span.add-nav 行を追加する
+      .row
+        .col-12
+          %h2.how_to_makes_list_title 作り方
+      .how_to_makes_list
+        .row
+          .col-12
+            %ol
+              .form-group
+                = f.fields_for :how_to_makes do |how_to_make|
+                  = render 'shared/how_to_makes_fields', f: how_to_make
+                = link_to_add_association f, :how_to_makes, partial: 'shared/how_to_makes_fields' do
+                  %i.fa.fa-plus-circle
+                  %span.add-nav 行を追加する
+      = f.submit "Post", class: "btn btn-primary"
+:javascript
+  $("recipe_image").bind("change", function() {
+    var size_in_megabytes = this.files[0].size/1024/1024;
+    if (size_in_megabytes > 5) {
+      alert("Maximum file size is 5MB. Please choose a smaller file.");
+      $("#recipe_image").val("");
+    }
+  });
+:javascript
+  $(function(){
+      $("#input-text").on("keyup", function() {
+        let countNum = String($(this).val().length);
+        $("#counter").text(countNum + "/255words");
+      });
+    });

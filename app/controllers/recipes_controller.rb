@@ -64,4 +64,7 @@ class RecipesController < ApplicationController
       redirect_to root_url if @recipe.nil?
     end
 
+    def get_category_children
+      @category_children = Category.find_by(name: "#{params[:parent_name]}", ancestry: nil).children
+   end
 end

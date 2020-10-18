@@ -1,0 +1,74 @@
+.recipes
+  .left.jumbotron
+    .row
+      .col-md-4.offset-md-8
+        .info
+          %span By
+          %span.user= link_to recipe.user.name, recipe.user
+          %span.timestamp
+            Posted #{time_ago_in_words(recipe.created_at)} ago.
+          - if current_user?(recipe.user)
+            = link_to "delete", recipe, method: :delete, |
+              data: { confirm: "You sure?" }             |
+            |
+            \#{link_to "edit", "/recipes/#{recipe.id}/edit"}
+    .row
+      .col-12
+        %h1.recipe_title= recipe.title
+    .row
+      .col-8
+        = image_tag recipe.image, class:"recipe_img" if recipe.image.attached?
+      .col-4
+        .row
+          .col-12
+            %h3.work_title 作品名
+            .work
+              %a.work_tag= recipe.work
+          .col-12
+            %h3.author_title 監督・著者
+            .author
+              %a.author_tag= recipe.author
+          .col-12
+            %h3.category_title カテゴリー
+            .category
+              %a.category_tag 煮物
+              %a.category_tag 里芋
+              %a.category_tag 副菜
+    .row
+      .col-12
+        %h2.content_title 紹介文
+        .content
+          = recipe.content
+    .row
+      .col-12
+        %h2.ingredients_list_title 材料・調味料
+    .ingredients_list
+      .row
+        .col-12
+          - recipe.ingredients.each do |f|
+            %li.ingredients_list_item
+              %span.ingredient
+                = f.ingredient
+              %span.amount
+                = f.amount
+    .row
+      .col-12
+        %h2.how_to_makes_list_title 作り方
+    .how_to_makes_list
+      .row
+        .col-12
+          %ol
+            - recipe.how_to_makes.each do |f|
+              %li.how_to_makes_list_item= f.content
+    .row
+      .col-md-4.offset-md-8
+        .float-right
+          %div{:id => "likes_buttons_#{recipe.id}"}
+            = render partial: 'favorites/favorite', locals: { recipe: recipe}
+  .left.jumbotron
+    %div
+      %h2.comment_title コメント
+      #comments_area
+        = render partial: 'comments/index', locals: { comments: @comments }
+      - if logged_in?
+        = render partial: 'comments/form', locals: { comment: @comment, recipe: @recipe }

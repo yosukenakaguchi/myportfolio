@@ -1,0 +1,15 @@
+- if logged_in?
+  .row
+    %aside.col-md-3
+      %section.user_info
+        = render 'shared/user_info'
+      %section.stats
+        = render 'shared/stats'
+    .col-md-9
+      %h3 Recipe Feed
+- else
+  .center.jumbotron
+    %h1 Welcome to the Myportfolio
+    %h2
+      映画・文学に登場する料理のレシピ投稿サイトです。
+    = link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary"
