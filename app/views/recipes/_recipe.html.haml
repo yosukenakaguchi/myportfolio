@@ -23,17 +23,16 @@
           .col-12
             %h3.work_title 作品名
             .work
-              %a.work_tag= recipe.work
+              = link_to recipe.work, recipes_path(work: recipe.work), class: "work_tag"
           .col-12
             %h3.author_title 監督・著者
             .author
-              %a.author_tag= recipe.author
+              = link_to recipe.author, recipes_path(author: recipe.author), class: "author_tag"
           .col-12
             %h3.category_title カテゴリー
             .category
-              %a.category_tag 煮物
-              %a.category_tag 里芋
-              %a.category_tag 副菜
+              - recipe.tag_list.each do |tag|
+                = link_to tag, recipes_path(tag_name: tag), class: "category_tag"
     .row
       .col-12
         %h2.content_title 紹介文

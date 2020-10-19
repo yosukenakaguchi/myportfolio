@@ -4,6 +4,13 @@ class RecipesController < ApplicationController
 
   def index
     @recipes = Recipe.all.page(params[:page]).per(15)
+    if params[:tag_name]
+      @recipes = Recipe.tagged_with("#{params[:tag_name]}").all.page(params[:page]).per(15)
+    elsif params[:author]
+      @recipes = Recipe.where(author: "#{params[:author]}").all.page(params[:page]).per(15)
+    elsif params[:work]
+      @recipes = Recipe.where(work: "#{params[:work]}").all.page(params[:page]).per(15)
+    end
   end
 
   def new
@@ -16,6 +23,13 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find_by(id:params[:id])
     @comment = Comment.new
     @comments = @recipe.comments.includes(:user)
+    if params[:tag_name]
+      @recipes = Recipe.tagged_with("#{params[:tag_name]}").all.page(params[:page]).per(15)
+    elsif params[:author]
+      @recipes = Recipe.where(author: "#{params[:author]}").all.page(params[:page]).per(15)
+    elsif params[:work]
+      @recipes = Recipe.where(work: "#{params[:work]}").all.page(params[:page]).per(15)
+    end
   end
 
   def edit
@@ -54,7 +68,7 @@ class RecipesController < ApplicationController
   private
 
     def recipe_params
-      params.require(:recipe).permit(:title, :image, :content, :work, :author,
+      params.require(:recipe).permit(:title, :image, :content, :work, :author, :tag_list,
                                       ingredients_attributes: [:id, :ingredient, :amount, :_destroy],
                                       how_to_makes_attributes: [:id, :content, :_destroy])
     end
