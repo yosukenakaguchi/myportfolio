@@ -23,7 +23,7 @@
         .col-6
           .form-group
             = f.label :タグ
-            = f.text_field :tag_list, placeholder: "例:料理が登場する作品の監督や作者を入力してください", value: @recipe.tag_list.join(','), class: "form-control"
+            = f.text_field :tag_list, placeholder: "複数入力する場合は , で区切ってください", value: @recipe.tag_list.join(','), class: "form-control"
       .row
         .col-12
           %h2.content_title 紹介文
