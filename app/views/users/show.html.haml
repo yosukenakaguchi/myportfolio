@@ -17,32 +17,8 @@
           %a{"data-toggle" => "tab", :href => "#favorites"} Favorites
       .tab-content
         #posts.tab-pane.active
-          .card-columns
-            - @user.recipes.each do |recipe|
-              .card
-                = link_to recipe_path(recipe) do
-                  = image_tag recipe.image, class:"card-img" if recipe.image.attached?
-                .card-body
-                  %span.card-title= link_to recipe.title, recipe_path(recipe)
-                  %span.float-right{:id => "likes_buttons_#{recipe.id}"}
-                    = render partial: 'favorites/favorite', locals: { recipe: recipe}
-                  %br/
-                  = link_to recipe.work, recipes_path(work: recipe.work), class: "card_work_tag"
-                  = link_to recipe.author, recipes_path(author: recipe.author), class: "card_author_tag"
-                  - recipe.tag_list.each do |tag|
-                    = link_to tag, recipes_path(tag_name: tag), class: "card_tags_tag"
+        .card-columns
+          = render partial: 'recipes/index', collection: @user.recipes, as: :recipe
         #favorites.tab-pane
-          .card-columns
-            - @user.favorite_recipes.each do |recipe|
-              .card
-                = link_to recipe_path(recipe) do
-                  = image_tag recipe.image, class:"card-img" if recipe.image.attached?
-                .card-body
-                  %span.card-title= link_to recipe.title, recipe_path(recipe)
-                  %span.float-right{:id => "likes_buttons_#{recipe.id}"}
-                    = render partial: 'favorites/favorite', locals: { recipe: recipe}
-                  %br/
-                  = link_to recipe.work, recipes_path(work: recipe.work), class: "card_work_tag"
-                  = link_to recipe.author, recipes_path(author: recipe.author), class: "card_author_tag"
-                  - recipe.tag_list.each do |tag|
-                    = link_to tag, recipes_path(tag_name: tag), class: "card_tags_tag"
+        .card-columns
+          = render partial: 'recipes/index', collection: @user.favorite_recipes, as: :recipe

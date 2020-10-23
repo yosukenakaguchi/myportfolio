@@ -6,10 +6,13 @@ class RecipesController < ApplicationController
     @recipes = Recipe.all.page(params[:page]).per(15)
     if params[:tag_name]
       @recipes = Recipe.tagged_with("#{params[:tag_name]}").all.page(params[:page]).per(15)
+      @title = params[:tag_name]
     elsif params[:author]
       @recipes = Recipe.where(author: "#{params[:author]}").all.page(params[:page]).per(15)
+      @title = params[:author]
     elsif params[:work]
       @recipes = Recipe.where(work: "#{params[:work]}").all.page(params[:page]).per(15)
+      @title = params[:work]
     end
   end
 

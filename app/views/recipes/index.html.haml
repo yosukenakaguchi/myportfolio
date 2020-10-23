@@ -1,1 +1,5 @@
-= render partial: 'recipes/index'
+- if @title != nil?
+  .h2= @title
+.card-columns
+  = render partial: 'recipes/index', collection: @recipes, as: :recipe
+= paginate @recipes
