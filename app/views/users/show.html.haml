@@ -9,16 +9,5 @@
       = render 'shared/stats'
     = render 'follow_form' if logged_in?
   .col-md-10
-    .container
-      %ul.nav.nav-tabs
-        %li.active
-          %a{"data-toggle" => "tab", :href => "#posts"} Posts
-        %li
-          %a{"data-toggle" => "tab", :href => "#favorites"} Favorites
-      .tab-content
-        #posts.tab-pane.active
-        .card-columns
-          = render partial: 'recipes/index', collection: @user.recipes, as: :recipe
-        #favorites.tab-pane
-        .card-columns
-          = render partial: 'recipes/index', collection: @user.favorite_recipes, as: :recipe
+    .card-columns
+      = render partial: 'recipes/index', collection: @user.recipes, as: :recipe

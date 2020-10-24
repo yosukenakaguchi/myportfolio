@@ -36,3 +36,7 @@
         .nav-item
           = link_to "Login", login_path, class: "nav-link"
           %div
+      = search_form_for @search, url: recipes_path do |f|
+        .form-inline
+          = f.text_field :title_or_work_or_author_or_tags_name_cont, class: "form-control", placeholder: "フリーワード検索"
+          = f.submit 'Search', class: "btn btn-primary w-auto mb-0 mt-1"

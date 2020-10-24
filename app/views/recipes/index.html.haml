@@ -1,5 +1,5 @@
 - if @title != nil?
   .h2= @title
 .card-columns
-  = render partial: 'recipes/index', collection: @recipes, as: :recipe
-= paginate @recipes
+  = render partial: 'recipes/index', collection: @search_recipes, as: :recipe
+= paginate @search_recipes

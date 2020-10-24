@@ -243,6 +243,12 @@ $dropDown: false;
     }
   }
 }
+
+.form-inline > .form-control {
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+}
+
 @media (max-width: 575px) {
   .navbar-expend-sm .navbar-nav .show .dropdown-menu {
     .dropdown-item {
