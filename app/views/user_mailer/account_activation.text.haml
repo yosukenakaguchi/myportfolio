@@ -1,5 +1,13 @@
-Hi #{@user.name},
+#{@user.name}様
 
-Welcome to the Sample App! Click on the link below to activate your account:
+映画・文学めしへご登録いただき誠にありがとうございます。
+
+現在はまだアカウントが有効化されておりません。
+
+下記のリンクより、アカウントを有効化してください。
 
 \#{edit_account_activation_url(@user.activation_token, email: @user.email)}
+
+本メールに心当たりがない場合は、第三者が入力を誤った可能性がございます。
+
+そのためこのメールは破棄していただいて結構です。

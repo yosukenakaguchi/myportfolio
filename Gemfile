@@ -17,6 +17,7 @@ gem 'cocoon'
 gem "haml-rails"
 gem 'acts-as-taggable-on', '~> 6.0'
 gem 'ransack'
+gem 'aws-sdk-s3', '~> 1.83', '>= 1.83.1', require: false
 # Use mysql as the database for Active Record
 gem 'mysql2', '>= 0.5.2'
 # Use Puma as the app server
@@ -62,6 +63,14 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
+end
+
+group :production, :staging do
+  gem 'unicorn'
+end
+
+group :production do
+  gem 'dotenv-rails'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
