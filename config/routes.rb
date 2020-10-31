@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'favorites/destroy'
   get 'password_resets/new'
   get 'password_resets/edit'
-  root   'static_pages#home'
+  root   'recipes#index'
   get    '/signup', to: 'users#new'
   get    '/about',  to: 'static_pages#about'
   get    '/login',  to: 'sessions#new'
