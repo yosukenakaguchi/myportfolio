@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get    '/about',  to: 'static_pages#about'
   get    '/login',  to: 'sessions#new'
   post   '/login',  to: 'sessions#create'
+  post '/guest_login', to: 'sessions#new_guest'
   delete '/logout', to: 'sessions#destroy'
   resources :users
   resources :account_activations, only: [:edit]

@@ -27,6 +27,8 @@
           = link_to "Signup", signup_path, class: "nav-link"
         .nav-item
           = link_to "Login", login_path, class: "nav-link"
+        .nav-item
+          = link_to "ゲストログイン（閲覧用）", guest_login_path, class: "nav-link", method: :post
       = search_form_for @search, url: recipes_path do |f|
         .form-inline
           = f.text_field :title_or_work_or_author_or_tags_name_cont, class: "form-control", placeholder: "フリーワード検索"

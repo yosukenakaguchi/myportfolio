@@ -100,6 +100,14 @@ class User < ApplicationRecord
         following.include?(other_user)
     end
 
+    # ゲストユーザーを検索または作成
+    def self.guest
+        find_or_create_by!(email: 'guest@example.com') do |user|
+          user.password = User.new_token
+          user.name = "ゲストユーザー"
+        end
+    end
+
     private
 
         # メールアドレスをすべて小文字にする

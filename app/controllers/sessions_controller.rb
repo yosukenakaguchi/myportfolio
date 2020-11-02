@@ -26,4 +26,11 @@ class SessionsController < ApplicationController
     redirect_to root_url
   end
 
+  def new_guest
+    user = User.guest
+    user.activate
+    log_in user
+    redirect_to root_path, notice: 'ゲストユーザーとしてログインしました。'
+  end
+
 end
