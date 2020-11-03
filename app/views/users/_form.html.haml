@@ -1,15 +1,15 @@
 = form_with(model: @user, local: true) do |f|
   = render 'shared/error_messages', object: f.object
   .form-group
-    = f.label :name
+    = f.label :名前
     = f.text_field :name, class: 'form-control'
   .form-group
-    = f.label :email
+    = f.label :Eメール
     = f.email_field :email, class: 'form-control'
   .form-group
-    = f.label :password
+    = f.label :パスワード
     = f.password_field :password, class: 'form-control'
   .form-group
-    = f.label :password_confirmation
+    = f.label :パスワード再確認
     = f.password_field :password_confirmation, class: 'form-control'
   = f.submit yield(:button_text), class: "btn btn-primary"

@@ -247,6 +247,13 @@ $dropDown: false;
 .form-inline > .form-control {
   margin-top: 0.25rem;
   margin-bottom: 0;
+  border-top-left-radius: 17px;
+  border-bottom-left-radius: 17px;
+}
+
+#search_btn {
+  border-top-right-radius: 17px;
+  border-bottom-right-radius: 17px;
 }
 
 @media (max-width: 575px) {
