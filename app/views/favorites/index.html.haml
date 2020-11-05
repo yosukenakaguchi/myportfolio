@@ -1,2 +1,1 @@
-- @favorites.each do |favorite|
-  = bookmark.name
+= render partial: 'recipes/index', collection: @user.favorites_recipes, as: :recipe

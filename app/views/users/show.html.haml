@@ -1,13 +1,34 @@
 - provide(:title, @user.name)
 .row
-  %aside.col-md-2
-    %section.user_info
-      %h1
-        = gravatar_for @user, size: 35
+  %aside.col-md-3
+    .container
+      .user-icon
+        = gravatar_for @user, size: 50
+      .user-name
         = @user.name
-    %section.stats
-      = render 'shared/stats'
-    = render 'follow_form' if logged_in?
-  .col-md-10
-    .card-columns
-      = render partial: 'recipes/index', collection: @user.recipes, as: :recipe
+      .user-stats
+        = render 'shared/stats'
+      = render 'follow_form' if logged_in?
+      .user-favorite
+  .col-md-9
+    %ul.nav.nav-pills.nav-justified
+      %li.nav-item{style: "text-shadow:none"}
+        %a#item1-tab.nav-link.active{"aria-controls" => "item1", "aria-selected" => "true", "data-toggle" => "tab", :href => "#item1", :role => "tab"}投稿一覧
+      %li.nav-item{style: "text-shadow:none"}
+        %a#item2-tab.nav-link{"aria-controls" => "item2", "aria-selected" => "false", "data-toggle" => "tab", :href => "#item2", :role => "tab"}お気に入り
+    .tab-content
+      #item1.tab-pane.fade.show.active{"aria-labelledby" => "item1-tab", :role => "tabpanel"}
+        - if @user.recipes.any?
+          .card-columns
+            = render partial: 'recipes/index', collection: @user.recipes, as: :recipe
+        - else
+          .alert-nopost
+            %h5 まだ投稿はありません
+      #item2.tab-pane.fade{"aria-labelledby" => "item2-tab", :role => "tabpanel"}
+        - if @user.favorite_recipes.any?
+          .card-columns
+            = render partial: 'recipes/index', collection: @user.favorite_recipes, as: :recipe
+        - else
+          .alert-nopost
+            %h5 まだお気に入りの投稿はありません
+

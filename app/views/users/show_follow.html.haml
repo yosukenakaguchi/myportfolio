@@ -1,22 +1,17 @@
 - provide(:title, @title)
 .row
-  %aside.col-md-4
-    %section.user_info
-      = gravatar_for @user
-      %h1= @user.name
-      %span= link_to "view my profile", @user
-      %span
-        %b Recipes:
-        = @user.recipes.count
-    %section.stats
-      = render 'shared/stats'
+  %aside.col-md-3
+    .container
+      .user-icon
+        = gravatar_for @user, size: 50
+      .user-name
+        %span= link_to "#{@user.name}", @user
+      .user-stats
+        = render 'shared/stats'
+  .col-md-9
+    .follow-list
+      %h3= @title
       - if @users.any?
-        .user_avatars
-          - @users.each do |user|
-            = link_to gravatar_for(user, size: 30), user
-  .col-md-8
-    %h3= @title
-    - if @users.any?
-      %ul.users.follow
-        = render @users
-      = paginate @users
+        %ul.users.follow
+          = render @users
+        = paginate @users
