@@ -1,16 +1,16 @@
 # メインのサンプルユーザーを1人作成する
-User.create!(name:  "Example User",
-             email: "example@railstutorial.org",
-             password:              "foobar",
-             password_confirmation: "foobar",
+User.create!(name:  "管理ユーザー",
+             email: "admin@myportfolio.net",
+             password:              "papipupepo",
+             password_confirmation: "papipupepo",
              admin:     true,
              activated: true,
              activated_at: Time.zone.now)
 
 # 追加のユーザーをまとめて生成する
-99.times do |n|
-  name  = Faker::Name.name
-  email = "example-#{n+1}@railstutorial.org"
+30.times do |n|
+  name  = "ユーザー#{n+1}"
+  email = "user-#{n+1}@myportfolio.net"
   password = "password"
   User.create!(name:  name,
               email: email,
@@ -37,7 +37,7 @@ end
 # 以下のリレーションシップを作成する
 users = User.all
 user  = users.first
-following = users[2..50]
-followers = users[3..40]
+following = users[2..30]
+followers = users[3..20]
 following.each { |followed| user.follow(followed) }
 followers.each { |follower| follower.follow(user) }
