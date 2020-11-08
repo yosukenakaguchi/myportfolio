@@ -1,0 +1,46 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-performance
+  - rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 2.7.1
+  Exclude:
+    - "bin/*"
+    - "config/**/*"
+    - "db/**/*"
+    - "lib/*"
+    - "spec/**/*"
+    - "node_modules/**/*"
+    - "tmp/**/*"
+    - "vendor/**/*"
+    - ".git/**/*"
+
+#Missing frozen string literal comment.を無効
+Style/StringLiterals:
+  Enabled: false
+
+#Prefer single-quoted strings when you don't need string interpolation or special symbols.を無効
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+#Missing top-level class documentation comment.を無効
+Style/Documentation:
+  Enabled: false
+
+#Use only ascii symbols in comments.を無効
+Style/AsciiComments:
+  Enabled: false
+
+#Put empty method definitions on a single line.を無効
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+
+#Avoid using update_attribute because it skips validations.を無効
+Rails/SkipsModelValidations:
+  Enabled: false
+
+#Do not prefix reader method names with get_.を無効
+Naming/AccessorMethodName:
+  Enabled: false

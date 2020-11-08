@@ -27,7 +27,7 @@ RSpec.describe User, type: :model do
     @user.valid?
     expect(@user.errors[:name]).to include('is too long (maximum is 50 characters)')
   end
-  
+
   it "emailが256文字以上の場合は登録できない" do
     @user.email = "a" * 244 + "@example.com"
     @user.valid?
@@ -45,7 +45,7 @@ RSpec.describe User, type: :model do
 
   it "email validation should reject invalid addresses" do
     invalid_addresses = %w[user@example,com user_at_foo.org user.name@example.
-                           foo@bar_baz.com foo@bar+baz.com foo@bar..com] 
+                           foo@bar_baz.com foo@bar+baz.com foo@bar..com]
     invalid_addresses.each do |invalid_address|
       @user.email = invalid_address
       expect(@user). to be_invalid, "#{invalid_address.inspect} should be valid"
@@ -78,4 +78,3 @@ RSpec.describe User, type: :model do
   end
 
 end
-  

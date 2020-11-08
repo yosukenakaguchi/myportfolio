@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  before_action :logged_in_user, only: [:new, :edit, :upadate, :create, :destroy]
+  before_action :logged_in_user, only: %i[new edit update create destroy]
   before_action :correct_user,   only: :destroy
 
   def index
@@ -21,9 +21,9 @@ class RecipesController < ApplicationController
     3.times { @recipe.ingredients.build }
     3.times { @recipe.how_to_makes.build }
   end
-  
+
   def show
-    @recipe = Recipe.find_by(id:params[:id])
+    @recipe = Recipe.find_by(id: params[:id])
     @comment = Comment.new
     @comments = @recipe.comments.includes(:user)
     if params[:tag_name]
@@ -42,11 +42,11 @@ class RecipesController < ApplicationController
   def update
     @recipe = Recipe.find(params[:id])
     @recipe.image.attach(params[:recipe][:image])
-    if @recipe.update_attributes(recipe_params)
+    if @recipe.update(recipe_params)
       flash[:success] = 'Recipe updated!'
       redirect_to @recipe
     else
-    render 'edit'
+      render 'edit'
     end
   end
 
@@ -70,18 +70,18 @@ class RecipesController < ApplicationController
 
   private
 
-    def recipe_params
-      params.require(:recipe).permit(:title, :image, :content, :work, :author, :tag_list,
-                                      ingredients_attributes: [:id, :ingredient, :amount, :_destroy],
-                                      how_to_makes_attributes: [:id, :content, :_destroy])
-    end
+  def recipe_params
+    params.require(:recipe).permit(:title, :image, :content, :work, :author, :tag_list,
+                                   ingredients_attributes: %i[id ingredient amount _destroy],
+                                   how_to_makes_attributes: %i[id content _destroy])
+  end
 
-    def correct_user
-      @recipe = current_user.recipes.find_by(id: params[:id])
-      redirect_to root_url if @recipe.nil?
-    end
+  def correct_user
+    @recipe = current_user.recipes.find_by(id: params[:id])
+    redirect_to root_url if @recipe.nil?
+  end
 
-    def get_category_children
-      @category_children = Category.find_by(name: "#{params[:parent_name]}", ancestry: nil).children
-   end
+  def get_category_children
+    @category_children = Category.find_by(name: "#{params[:parent_name]}", ancestry: nil).children
+  end
 end

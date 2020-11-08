@@ -32,5 +32,4 @@ class SessionsController < ApplicationController
     log_in user
     redirect_to root_path, notice: 'ゲストユーザーとしてログインしました。'
   end
-
 end

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :correct_user,   only: %i{edit update}
+  before_action :correct_user,   only: %i[edit update]
   before_action :admin_user,     only: :destroy
-  before_action :logged_in_user, only: %i{index edit update destroy following followers}
+  before_action :logged_in_user, only: %i[index edit update destroy following followers]
   before_action :check_guest,    only: %i[update destroy]
 
   def index
@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     redirect_to root_url and return unless @user.activated?
   end
-  
+
   def create
     @user = User.new(user_params)
     if @user.save
@@ -64,26 +64,24 @@ class UsersController < ApplicationController
 
   private
 
-    def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
-    end
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
 
-    # beforeアクション
+  # beforeアクション
 
-    # 正しいユーザーかどうか確認
-    def correct_user
-      @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user)
-    end
+  # 正しいユーザーかどうか確認
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to(root_url) unless current_user?(@user)
+  end
 
-    # 管理者かどうか確認
-    def admin_user
-      redirect_to(root_url) unless current_user.admin?
-    end
+  # 管理者かどうか確認
+  def admin_user
+    redirect_to(root_url) unless current_user.admin?
+  end
 
-    def check_guest
-      if current_user.email == 'guest@example.com'
-        redirect_to root_path, alert: 'ゲストユーザーの変更・削除はできません。'
-      end
-    end
+  def check_guest
+    redirect_to root_path, alert: 'ゲストユーザーの変更・削除はできません。' if current_user.email == 'guest@example.com'
+  end
 end
