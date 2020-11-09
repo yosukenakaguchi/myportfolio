@@ -5,13 +5,13 @@ class RecipesController < ApplicationController
   def index
     @recipes = Recipe.all.page(params[:page]).per(15)
     if params[:tag_name]
-      @search_recipes = Recipe.tagged_with("#{params[:tag_name]}").all.page(params[:page]).per(15)
+      @search_recipes = Recipe.tagged_with(params[:tag_name].to_s).all.page(params[:page]).per(15)
       @title = params[:tag_name]
     elsif params[:author]
-      @search_recipes = Recipe.where(author: "#{params[:author]}").all.page(params[:page]).per(15)
+      @search_recipes = Recipe.where(author: params[:author].to_s).all.page(params[:page]).per(15)
       @title = params[:author]
     elsif params[:work]
-      @search_recipes = Recipe.where(work: "#{params[:work]}").all.page(params[:page]).per(15)
+      @search_recipes = Recipe.where(work: params[:work].to_s).all.page(params[:page]).per(15)
       @title = params[:work]
     end
   end
@@ -27,11 +27,11 @@ class RecipesController < ApplicationController
     @comment = Comment.new
     @comments = @recipe.comments.includes(:user)
     if params[:tag_name]
-      @recipes = Recipe.tagged_with("#{params[:tag_name]}").all.page(params[:page]).per(15)
+      @recipes = Recipe.tagged_with(params[:tag_name].to_s).all.page(params[:page]).per(15)
     elsif params[:author]
-      @recipes = Recipe.where(author: "#{params[:author]}").all.page(params[:page]).per(15)
+      @recipes = Recipe.where(author: params[:author].to_s).all.page(params[:page]).per(15)
     elsif params[:work]
-      @recipes = Recipe.where(work: "#{params[:work]}").all.page(params[:page]).per(15)
+      @recipes = Recipe.where(work: params[:work].to_s).all.page(params[:page]).per(15)
     end
   end
 
@@ -82,6 +82,6 @@ class RecipesController < ApplicationController
   end
 
   def get_category_children
-    @category_children = Category.find_by(name: "#{params[:parent_name]}", ancestry: nil).children
+    @category_children = Category.find_by(name: params[:parent_name].to_s, ancestry: nil).children
   end
 end
