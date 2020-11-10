@@ -18,6 +18,7 @@ gem 'kaminari', '~> 1.2', '>= 1.2.1'
 gem 'mini_magick', '~> 4.10', '>= 4.10.1'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
 gem 'ransack'
+gem 'react-rails'
 gem 'rubocop', require: false
 gem 'rubocop-performance', require: false
 gem 'rubocop-rails', require: false
