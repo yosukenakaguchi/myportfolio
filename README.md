@@ -1,24 +1,41 @@
-# README
+# [映画・文学めし](https://www.myportfolio-app.net/)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+映画や文学に登場する料理のレシピ投稿アプリです。
+[https://www.myportfolio-app.net/](https://www.myportfolio-app.net/)
 
-Things you may want to cover:
+※ヘッダー右端に閲覧用のゲストログインボタンを設置しております。
 
-* Ruby version
+## 概要
 
-* System dependencies
+---
 
-* Configuration
+映画や文学において、時に料理は魅力的に描写されていますが、そういった料理の背後にある数多くの物語は既存のレシピサイトでは埋もれてしまっています。
 
-* Database creation
+映画や文学という従来のレシピサイトにはなかった新たな指標あれば、映画や文学を通して好きな料理が増え、また、好きな料理は更に好きになることができると思い、このポートフォリオを作成しました。
 
-* Database initialization
+## 使用技術一覧
 
-* How to run the test suite
+---
 
-* Services (job queues, cache servers, search engines, etc.)
+### フロントエンド
 
-* Deployment instructions
+- Bootstrap 4.5.2
+- SCSS
+- JavaScript, jQuery
 
-* ...
+### バックエンド
+
+- Ruby 2.7.1
+- Ruby on Rails 6.0.3.4
+
+### インフラ
+
+- MySQL 8.0.21
+- Nginx, Unicorn
+- AWS（VPC | S3 | ELB | EC2 | Route53 | IAM | RDS(MySQL) | Cloud Watch）
+
+## インフラ構成図
+
+---
+
+![インフラ構成図](https://github.com/yosukenakaguchi/myportfolio/issues/1)
