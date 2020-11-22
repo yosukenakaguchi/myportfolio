@@ -6,7 +6,7 @@
   現在はまだアカウントが有効化されておりません。
 %p
   下記のリンクより、アカウントを有効化してください。
-= link_to "Activate", edit_account_activation_url(@user.activation_token, |
+= link_to "アカウントを有効化する", edit_account_activation_url(@user.activation_token, |
   email: @user.email)                                                     |
 %p
   本メールに心当たりがない場合は、第三者が入力を誤った可能性がございます。
