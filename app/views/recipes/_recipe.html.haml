@@ -69,5 +69,7 @@
       %h2.comment_title コメント
       #comments_area
         = render partial: 'comments/index', locals: { comments: @comments }
+      - unless @comments.any?
+        %p まだコメントはありません
       - if logged_in?
         = render partial: 'comments/form', locals: { comment: @comment, recipe: @recipe }
