@@ -1,8 +1,9 @@
 - comments.each do |comment|
   - unless comment.id.nil?
     %p
-      = link_to "#{comment.user.name}さん", user_path(comment.user.id)
-      = comment.created_at.to_s(:datetime_jp)
+      = gravatar_for comment.user, size: 50
+      %span.comment_user= link_to "#{comment.user.name}さん", user_path(comment.user.id)
+      %span.comment_time= comment.created_at.to_s(:datetime_jp)
+      - if comment.user == current_user
+        %span.delete_comment= link_to '削除', recipe_comment_path(comment.recipe_id, comment.id), method: :delete, remote: true
     %p.comment_content= comment.content
-    - if comment.user == current_user
-      %p= link_to 'delete', recipe_comment_path(comment.recipe_id, comment.id), method: :delete, remote: true

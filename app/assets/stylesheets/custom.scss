@@ -540,18 +540,46 @@ input {
   }
 }
 
-.comment_content {
-  padding: 0.5em 0 0.5em 1em;
-}
-
 .work_title,
 .author_title,
 .category_title,
 .content_title,
 .ingredients_list_title,
-.how_to_makes_list_title,
-.comment_title {
+.how_to_makes_list_title {
   margin-bottom: 0.3em;
+}
+
+.comment_title {
+  padding-bottom: 0.3em;
+  border-bottom: #d5d2cd solid 1px;
+  margin-bottom: 0.3em;
+}
+
+.comment_content {
+  padding: 0 0 0.5em 3.1em;
+  border-bottom: #f4f2f0 solid 1px;
+}
+
+.comment_time {
+  padding-left: 3.1em;
+  display: inline-block;
+  color: #70777f;
+}
+
+.delete_comment > a {
+  padding-left: 1em;
+  color: #70777f;
+  &:hover {
+    color: black;
+  }
+}
+
+.comment_user > a {
+  font-size: 1.1em;
+  color: black;
+  &:hover {
+    color: black;
+  }
 }
 
 .recipe_img {
