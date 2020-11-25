@@ -598,6 +598,12 @@ input {
 
 .info {
   float: right;
+  .user > a {
+    color: black;
+    &:hover {
+      color: black;
+    }
+  }
 }
 
 .timestamp {
