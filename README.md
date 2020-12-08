@@ -33,6 +33,7 @@
 - Nginx, Unicorn
 - AWS（VPC | S3 | ELB | EC2 | Route53 | IAM | RDS(MySQL) | Cloud Watch）
 - SendGrid
+- Docker, Docker-compose(開発環境)
 
 ## インフラ構成図
 
@@ -66,6 +67,5 @@
 - 投稿の作品または監督・著者別の五十音検索  
   (映画・文学の指標からレシピを検索できる UX の強化)
 - レスポンシブル対応
-- Docker の導入
 - CircleCI/CD の導入
 - Terraform の導入
