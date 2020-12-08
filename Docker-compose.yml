@@ -22,6 +22,19 @@ services:
       MYSQL_PASSWORD: Pierre51020!
     volumes:
       - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  test-db:
+    image: mysql:8.0.21
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: myportfolio_test
+      MYSQL_ROOT_PASSWORD: Pierre51020
+      MYSQL_USER: myportfolio
+      MYSQL_PASSWORD: Pierre51020!
+    ports:
+      - "3307:3306"
 
   web:
     build:

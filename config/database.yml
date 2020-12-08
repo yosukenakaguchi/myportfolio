@@ -28,7 +28,7 @@ test:
   pool: 5
   username: myportfolio
   password: Pierre51020!
-  host: localhost
+  host: test-db
 
 production:
   adapter: mysql2
