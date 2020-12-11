@@ -8,7 +8,7 @@ services:
       - .:/myportfolio
       - public-data:/myportfolio/public
       - tmp-data:/myportfolio/tmp
-      - log-data:/webapp/log
+      - log-data:/myportfolio/log
     depends_on:
       - db
 
@@ -35,6 +35,8 @@ services:
       MYSQL_PASSWORD: Pierre51020!
     ports:
       - "3307:3306"
+    cap_add:
+      - SYS_NICE
 
   web:
     build:
