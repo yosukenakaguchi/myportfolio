@@ -5,10 +5,10 @@ services:
       context: .
     command: bundle exec puma -C config/puma.rb
     volumes:
-      - .:/myportfolio
-      - public-data:/myportfolio/public
-      - tmp-data:/myportfolio/tmp
-      - log-data:/myportfolio/log
+      - .:/myportfolio:cached
+      - public-data:/myportfolio/public:cached
+      - tmp-data:/myportfolio/tmp:cached
+      - log-data:/myportfolio/log:cached
     depends_on:
       - db
 
@@ -42,8 +42,8 @@ services:
     build:
       context: containers/nginx
     volumes:
-      - public-data:/myportfolio/public
-      - tmp-data:/myportfolio/tmp
+      - public-data:/myportfolio/public:cached
+      - tmp-data:/myportfolio/tmp:cached
     ports:
       - 80:80
     depends_on:

@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       @user.send_activation_email
-      flash[:info] = "Please check your email to activate your account."
+      flash[:info] = "送信したメールよりアカウントの有効化をおこなってください。"
       redirect_to root_url
     else
       render 'new'
@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      flash[:success] = "Profile updated"
+      flash[:success] = "変更が保存されました。"
       redirect_to @user
     else
       render 'edit'
@@ -82,6 +82,9 @@ class UsersController < ApplicationController
   end
 
   def check_guest
-    redirect_to root_path, alert: 'ゲストユーザーの変更・削除はできません。' if current_user.email == 'guest@example.com'
+    if current_user.email == 'guest@myportfolio.net'
+      flash[:danger] = 'ゲストユーザーの変更・削除はできません。'
+      redirect_to current_user
+    end
   end
 end

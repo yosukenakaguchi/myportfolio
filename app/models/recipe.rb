@@ -16,9 +16,9 @@ class Recipe < ApplicationRecord
                                       message: "must be a valid image format" },
                       size: { less_than: 5.megabytes,
                               message: "should be less than 5MB" }
-  validates :content, presence: true, length: { maximum: 255 }
   validates :work, presence: true, length: { maximum: 50 }
   validates :author, presence: true, length: { maximum: 50 }
+  validates :content, presence: true, length: { maximum: 255 }
 
   def display_image
     image.variant(resize_to_fit: [300, 200])

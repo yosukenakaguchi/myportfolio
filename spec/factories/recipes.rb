@@ -1,6 +1,9 @@
 FactoryBot.define do
   factory :recipe do
-    content { "MyText" }
-    user { nil }
+    title {"あああああ"}
+    work {"あああああ"}
+    author {"あああああ"}
+    content {"あああああ"}
+    association :user, factory: :user
   end
 end

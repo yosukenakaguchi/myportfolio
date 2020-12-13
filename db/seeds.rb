@@ -7,9 +7,17 @@ User.create!(name:  "管理ユーザー",
              activated: true,
              activated_at: Time.zone.now)
 
+guest_password = User.new_token
+User.create!(name:  "ゲストユーザー",
+             email: "guest@myportfolio.net",
+             password:              guest_password,
+             password_confirmation: guest_password,
+             activated: true,
+             activated_at: Time.zone.now)
+
 # 追加のユーザーをまとめて生成する
 30.times do |n|
-  name  = "ユーザー#{n+1}"
+  name  = Faker::Japanese::Name.name
   email = "user-#{n+1}@myportfolio.net"
   password = "password"
   User.create!(name:  name,
@@ -36,7 +44,7 @@ end
 
 # 以下のリレーションシップを作成する
 users = User.all
-user  = users.first
+user  = users.second
 following = users[2..30]
 followers = users[3..20]
 following.each { |followed| user.follow(followed) }

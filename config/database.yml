@@ -18,7 +18,7 @@ development:
   pool: 5
   username: myportfolio
   password: Pierre51020!
-  host: db
+  host: localhost
 
 test:
   adapter: mysql2
@@ -28,7 +28,7 @@ test:
   pool: 5
   username: myportfolio
   password: Pierre51020!
-  host: test-db
+  host: localhost
 
 production:
   adapter: mysql2

@@ -4,6 +4,7 @@ FactoryBot.define do
     sequence(:email) { |n| "test#{n}@myportfolio.net" }
     password { "password" }
     password_confirmation {"password" }
+    activated { true }
 
     #名前が無し
     trait :name_nil do

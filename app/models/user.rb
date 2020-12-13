@@ -104,7 +104,7 @@ class User < ApplicationRecord
 
   # ゲストユーザーを検索または作成
   def self.guest
-    find_or_create_by!(email: 'guest@example.com') do |user|
+    find_or_create_by!(email: 'guest@myportfolio.net') do |user|
       user.password = User.new_token
       user.name = "ゲストユーザー"
     end

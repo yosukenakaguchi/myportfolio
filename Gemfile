@@ -11,6 +11,7 @@ gem 'bcrypt', '~> 3.1', '>= 3.1.15'
 gem 'bootstrap', '~> 4.5', '>= 4.5.2'
 gem 'cocoon'
 gem 'faker', '~> 2.13'
+gem 'faker-japanese'
 gem "haml-rails"
 gem 'image_processing', '~> 1.11'
 gem 'jquery-rails', '~> 4.4'
