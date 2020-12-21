@@ -5,7 +5,6 @@ ruby '2.7.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'active_storage_validations', '~> 0.9.0'
-gem 'acts-as-taggable-on', '~> 6.0'
 gem 'aws-sdk-s3', '~> 1.83', '>= 1.83.1', require: false
 gem 'bcrypt', '~> 3.1', '>= 3.1.15'
 gem 'bootstrap', '~> 4.5', '>= 4.5.2'
