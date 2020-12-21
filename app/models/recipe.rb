@@ -8,8 +8,9 @@ class Recipe < ApplicationRecord
   accepts_nested_attributes_for :ingredients, reject_if: :all_blank, allow_destroy: true
   has_many :how_to_makes, inverse_of: :recipe, dependent: :destroy
   accepts_nested_attributes_for :how_to_makes, reject_if: :all_blank, allow_destroy: true
+  has_many  :recipe_tag_relationships, dependent: :destroy
+  has_many  :tags, through: :recipe_tag_relationships
   default_scope -> { order(created_at: :desc) }
-  acts_as_taggable
   validates :user_id, presence: true
   validates :title, presence: true, length: { maximum: 50 }
   validates :image,   content_type: { in: %w[image/jpeg image/gif image/png],
