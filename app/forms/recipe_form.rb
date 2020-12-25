@@ -1,7 +1,7 @@
 class RecipeForm
   include ActiveModel::Model
 
-  attr_accessor :title, :work, :author, :content, :user_id, :tag_name, :image
+  attr_accessor :title, :work, :author, :content, :user_id, :tag_name, :image, :ingredients, :how_to_makes
 
   with_options presence: true do
     validates :title, length: { maximum: 50 }
@@ -21,7 +21,7 @@ class RecipeForm
     end
 
     def ingredients_attributes=(attributes)
-      @ingredinets_attributes = Ingredient.new(attributes)
+      @ingredients_attributes = Ingredient.new(attributes)
     end
   end
 
@@ -39,6 +39,9 @@ class RecipeForm
 
   def initialize(attributes = nil, recipe: Recipe.new)
     @recipe = recipe
+    3.times {@recipe.ingredients.build}
+    3.times {@recipe.how_to_makes.build}
+    p "hoge"
     attributes ||= default_attributes
     super(attributes)
   end
@@ -69,14 +72,14 @@ class RecipeForm
       user_id: recipe.user_id,
       tag_name: recipe.tags.pluck(:tag_name).join(','),
       image: recipe.image,
-      ingredients_attributes: ingredients_attributes,
-      how_to_makes_attributes: how_to_makes_attributes
+      ingredients: recipe.ingredients,
+      how_to_makes: recipe.how_to_makes
     }
   end
 
   def build_asscociations
-    recipe.ingredients <<  ingredients_attributes unless ingredients_attributes.nil?
-    recipe.how_to_makes << how_to_makes_attributes unless how_to_makes_attributes.nil?
+    recipe.ingredients << ingredients unless ingredients_attributes.nil?
+    recipe.how_to_makes << how_to_makes unless how_to_makes_attributes.nil?
   end
 
   def split_tag_name
