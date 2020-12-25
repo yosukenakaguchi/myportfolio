@@ -31,8 +31,8 @@
           .col-12
             %h3.category_title タグ
             .category
-              - recipe.tag_list.each do |tag|
-                = link_to tag, recipes_path(tag_name: tag), class: "category_tag"
+              - recipe.tags.each do |tag|
+                = link_to tag.tag_name, recipes_path(tag_id: tag.id), class: "category_tag"
     .row
       .col-12
         %h2.content_title 紹介文
@@ -58,7 +58,7 @@
         .col-12
           %ol
             - recipe.how_to_makes.each do |f|
-              %li.how_to_makes_list_item= f.content
+              %li.how_to_makes_list_item= f.make_way
     .row
       .col-md-4.offset-md-8
         .float-right

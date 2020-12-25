@@ -8,7 +8,7 @@
     %ul.navbar-nav.mx-auto
       = search_form_for @search, url: recipes_path do |f|
         .form-inline
-          = f.text_field :title_or_work_or_author_or_tags_name_cont, class: "form-control", placeholder: "フリーワード検索"
+          = f.text_field :title_or_work_or_author_or_tags_tag_name_cont, class: "form-control", placeholder: "フリーワード検索"
           %button{type: "submit", class:'btn btn-primary w-auto mb-0 mt-1', id:"search_btn"}
             %i.fas.fa-search
     %ul.navbar-nav

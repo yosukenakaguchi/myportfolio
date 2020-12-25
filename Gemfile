@@ -8,7 +8,6 @@ gem 'active_storage_validations', '~> 0.9.0'
 gem 'aws-sdk-s3', '~> 1.83', '>= 1.83.1', require: false
 gem 'bcrypt', '~> 3.1', '>= 3.1.15'
 gem 'bootstrap', '~> 4.5', '>= 4.5.2'
-gem 'cocoon'
 gem 'faker', '~> 2.13'
 gem 'faker-japanese'
 gem "haml-rails"
@@ -59,6 +58,8 @@ group :development do
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'rails-erd'
+  gem 'brakeman'
 end
 
 group :test do

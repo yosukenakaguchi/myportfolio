@@ -29,7 +29,7 @@ RSpec.describe "Users", type: :system do
 
     it "ログインする" do
         visit login_path
-        fill_in "session[email]", with:"test@myportfolio.net" 
+        fill_in "session[email]", with:"test@myportfolio.net"
         fill_in "session[password]", with:"123456"
         click_button "ログイン"
         expect(page).to have_content 'ログインしました。'
@@ -38,7 +38,7 @@ RSpec.describe "Users", type: :system do
 
     it "ログインに失敗する" do
         visit login_path
-        fill_in "session[email]", with:"wrong-email@myportfolio.net" 
+        fill_in "session[email]", with:"wrong-email@myportfolio.net"
         fill_in "session[password]", with:"wrongpassword"
         click_button "ログイン"
         expect(page).to have_content 'メールアドレスまたはパスワードが違います。'
@@ -67,7 +67,7 @@ RSpec.describe "Users", type: :system do
         expect(page).to have_field 'user[email]', with: 'edit_test@myportfolio.net'
         click_on "ログアウト"
         visit login_path
-        fill_in "session[email]", with:"edit_test@myportfolio.net" 
+        fill_in "session[email]", with:"edit_test@myportfolio.net"
         fill_in "session[password]", with:"654321"
         click_button "ログイン"
         expect(page).to have_content "ログインしました。"

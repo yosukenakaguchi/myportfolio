@@ -1,4 +1,4 @@
-= form_with(model: @recipe, local: true) do |f|
+= form_with(model: @recipe_form, local: true) do |f|
   = render 'shared/error_messages', object: f.object
   %form
     .left.jumbotron
@@ -23,7 +23,7 @@
         .col-6
           .form-group
             = f.label :タグ
-            = f.text_field :tag_list, placeholder: "複数入力する場合は , で区切ってください", value: @recipe.tag_list.join(','), class: "form-control"
+            = f.text_field :tag_name, placeholder: "タグをつける。複数つけるには','で区切ってください。", class: "form-control", id:'tag_id'
       .row
         .col-12
           %h2.content_title 紹介文
@@ -40,9 +40,6 @@
             .form-group
               = f.fields_for :ingredients do |ingredient|
                 = render 'shared/ingredients_fields', f: ingredient
-              = link_to_add_association f, :ingredients, partial: 'shared/ingredients_fields' do
-                %i.fa.fa-plus-circle
-                %span.add-nav 行を追加する
       .row
         .col-12
           %h2.how_to_makes_list_title 作り方
@@ -53,9 +50,31 @@
               .form-group
                 = f.fields_for :how_to_makes do |how_to_make|
                   = render 'shared/how_to_makes_fields', f: how_to_make
-                = link_to_add_association f, :how_to_makes, partial: 'shared/how_to_makes_fields' do
-                  %i.fa.fa-plus-circle
-                  %span.add-nav 行を追加する
+      -# .row
+      -#   .col-12
+      -#     %h2.ingredients_list_title 材料・調味料
+      -# .ingredients_list
+      -#   .row
+      -#     .col-12
+      -#       .form-group
+      -#         = f.fields_for :ingredients do |ingredient|
+      -#           = render 'shared/ingredients_fields', f: ingredient
+      -#         = link_to_add_association f, :ingredients, partial: 'shared/ingredients_fields' do
+      -#           %i.fa.fa-plus-circle
+      -#           %span.add-nav 行を追加する
+      -# .row
+      -#   .col-12
+      -#     %h2.how_to_makes_list_title 作り方
+      -# .how_to_makes_list
+      -#   .row
+      -#     .col-12
+      -#       %ol
+      -#         .form-group
+      -#           = f.fields_for :how_to_makes do |how_to_make|
+      -#             = render 'shared/how_to_makes_fields', f: how_to_make
+      -#           = link_to_add_association f, :how_to_makes, partial: 'shared/how_to_makes_fields' do
+      -#             %i.fa.fa-plus-circle
+      -#             %span.add-nav 行を追加する
       = f.submit "Post", class: "btn btn-primary"
 :javascript
   $("recipe_image").bind("change", function() {

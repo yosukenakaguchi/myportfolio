@@ -8,6 +8,5 @@
     %br/
     = link_to recipe.work, recipes_path(work: recipe.work), class: "card_work_tag"
     = link_to recipe.author, recipes_path(author: recipe.author), class: "card_author_tag"
-    - recipe.tag_list.each do |tag|
-      = link_to tag, recipes_path(tag_name: tag), class: "card_tags_tag"
-
+    - recipe.tags.each do |tag|
+      = link_to tag.tag_name, recipes_path(tag_id: tag.id), class: "card_tags_tag"

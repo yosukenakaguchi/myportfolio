@@ -1,12 +1,13 @@
 class RecipesController < ApplicationController
   before_action :logged_in_user, only: %i[new edit update create destroy]
-  before_action :correct_user,   only: :destroy
+  before_action :correct_user,   only: %i[edit update destroy]
 
   def index
     @recipes = Recipe.all.page(params[:page]).per(15)
-    if params[:tag_name]
-      @search_recipes = Recipe.tagged_with(params[:tag_name].to_s).all.page(params[:page]).per(15)
-      @title = params[:tag_name]
+    if params[:tag_id]
+      @tag = Tag.find(params[:tag_id])
+      @search_recipes = @tag.recipes.all.page(params[:page]).per(15)
+      @title = @tag.tag_name
     elsif params[:author]
       @search_recipes = Recipe.where(author: params[:author].to_s).all.page(params[:page]).per(15)
       @title = params[:author]
@@ -17,71 +18,57 @@ class RecipesController < ApplicationController
   end
 
   def new
-    @recipe = current_user.recipes.build
-    3.times { @recipe.ingredients.build }
-    3.times { @recipe.how_to_makes.build }
+    @recipe_form = RecipeForm.new
   end
 
   def show
     @recipe = Recipe.find_by(id: params[:id])
     @comment = Comment.new
     @comments = @recipe.comments.includes(:user)
-    if params[:tag_name]
-      @recipes = Recipe.tagged_with(params[:tag_name].to_s).all.page(params[:page]).per(15)
-    elsif params[:author]
-      @recipes = Recipe.where(author: params[:author].to_s).all.page(params[:page]).per(15)
-    elsif params[:work]
-      @recipes = Recipe.where(work: params[:work].to_s).all.page(params[:page]).per(15)
-    end
   end
 
   def edit
-    @recipe = Recipe.find(params[:id])
+    @recipe_form = RecipeForm.new(recipe: @recipe)
   end
 
   def update
-    @recipe = Recipe.find(params[:id])
-    @recipe.image.attach(params[:recipe][:image])
-    if @recipe.update(recipe_params)
-      flash[:success] = 'Recipe updated!'
+    @recipe_form = RecipeForm.new(recipe_params, recipe: @recipe)
+    if @recipe_form.save
+      flash[:success] = "レシピの編集が完了しました。"
       redirect_to @recipe
     else
-      render 'edit'
+      render :edit
     end
   end
 
   def create
-    @recipe = current_user.recipes.build(recipe_params)
-    @recipe.image.attach(params[:recipe][:image])
-    if @recipe.save
-      flash[:success] = "Recipe created!"
+    @recipe_form = RecipeForm.new(recipe_params)
+    if @recipe_form.save
+      flash[:success] = "レシピの投稿が完了しました。"
       redirect_to root_url
     else
-      @recipes = current_user.feed.page(params[:page])
-      render 'static_pages/home'
+      render :new
     end
   end
 
   def destroy
     @recipe.destroy
-    flash[:success] = "Recipe deleted!"
+    flash[:success] = "レシピを削除しました。"
     redirect_back(fallback_location: root_url)
   end
 
   private
 
   def recipe_params
-    params.require(:recipe).permit(:title, :image, :content, :work, :author, :tag_list,
-                                   ingredients_attributes: %i[id ingredient amount _destroy],
-                                   how_to_makes_attributes: %i[id content _destroy])
+    params.require(:recipe).permit(
+      :title, :image, :content, :work, :author, :tag_name,
+      ingredients_attribute: [:ingredient, :amount],
+      how_to_makes_attributes: [:make_way]
+    ).merge(user_id: current_user.id)
   end
 
   def correct_user
     @recipe = current_user.recipes.find_by(id: params[:id])
     redirect_to root_url if @recipe.nil?
-  end
-
-  def get_category_children
-    @category_children = Category.find_by(name: params[:parent_name].to_s, ancestry: nil).children
   end
 end
