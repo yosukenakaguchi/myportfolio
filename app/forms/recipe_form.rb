@@ -1,7 +1,7 @@
 class RecipeForm
   include ActiveModel::Model
 
-  attr_accessor :title, :work, :author, :content, :user_id, :tag_name, :image, :ingredients, :how_to_makes
+  attr_accessor :title, :work, :author, :content, :user_id, :tag_name, :image
 
   with_options presence: true do
     validates :title, length: { maximum: 50 }
@@ -21,7 +21,9 @@ class RecipeForm
     end
 
     def ingredients_attributes=(attributes)
-      @ingredients_attributes = Ingredient.new(attributes)
+      @ingredients_attributes = attributes.map do |_, attribute|
+        Ingredient.new(attribute)
+      end
     end
   end
 
@@ -33,15 +35,16 @@ class RecipeForm
     end
 
     def how_to_makes_attributes=(attributes)
-      @how_to_makes_attributes = HowToMake.new(attributes)
+      @how_to_makes_attributes = attributes.map do |_, attribute|
+        HowToMake.new(attribute)
+      end
     end
   end
 
   def initialize(attributes = nil, recipe: Recipe.new)
     @recipe = recipe
-    3.times {@recipe.ingredients.build}
-    3.times {@recipe.how_to_makes.build}
-    p "hoge"
+    set_ingredients_attributes
+    set_how_to_makes_attributes
     attributes ||= default_attributes
     super(attributes)
   end
@@ -72,14 +75,28 @@ class RecipeForm
       user_id: recipe.user_id,
       tag_name: recipe.tags.pluck(:tag_name).join(','),
       image: recipe.image,
-      ingredients: recipe.ingredients,
-      how_to_makes: recipe.how_to_makes
     }
   end
 
   def build_asscociations
     recipe.ingredients << ingredients unless ingredients_attributes.nil?
     recipe.how_to_makes << how_to_makes unless how_to_makes_attributes.nil?
+  end
+
+  def set_ingredients_attributes
+    if recipe.persisted?
+      @ingredients_attributes = recipe.ingredients
+    else
+      self.ingredients_attributes = [{},{},{}]
+    end
+  end
+
+  def set_how_to_makes_attributes
+    if recipe.persisted?
+      @how_to_makes_attributes = recipe.how_to_makes
+    else
+      self.how_to_makes_attributes = [{},{},{}]
+    end
   end
 
   def split_tag_name
