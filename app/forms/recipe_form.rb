@@ -53,8 +53,16 @@ class RecipeForm
     return if invalid?
     ActiveRecord::Base.transaction do
       tags = split_tag_name.map { |name| Tag.find_or_create_by!(tag_name: name) }
-      build_asscociations
-      recipe.update(title: title, work: work, author: author, content: content, tags: tags, user_id: user_id, image: image, ingredients: ingredients_attributes, how_to_makes: how_to_makes_attributes)
+      recipe.update(title: title,
+                    work: work,
+                    author: author,
+                    content: content,
+                    tags: tags,
+                    user_id: user_id,
+                    image: image,
+                    ingredients: ingredients_attributes,
+                    how_to_makes: how_to_makes_attributes
+                    )
     end
   end
 
@@ -76,11 +84,6 @@ class RecipeForm
       tag_name: recipe.tags.pluck(:tag_name).join(','),
       image: recipe.image,
     }
-  end
-
-  def build_asscociations
-    recipe.ingredients << ingredients unless ingredients_attributes.nil?
-    recipe.how_to_makes << how_to_makes unless how_to_makes_attributes.nil?
   end
 
   def set_ingredients_attributes
