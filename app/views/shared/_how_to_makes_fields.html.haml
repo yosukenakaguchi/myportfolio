@@ -1,6 +1,8 @@
-%li
-  .row
-    .col-11
-      = f.text_field :make_way, placeholder: "作り方を入力してください", class: 'form-control'
-    .col-1
-      %i.fa.fa-times-circle
+.fields
+  %li
+    .row
+      .col-11
+        = f.text_field :make_way, placeholder: "作り方を入力してください", class: 'form-control'
+      .col-1
+        -# %i.fa.fa-times-circle
+        = link_to_remove_field(f, {})

@@ -5,7 +5,7 @@
       .row
         .col-6
           .form-group
-            = f.label :料理名
+            = f.label :タイトル
             = f.text_field :title, placeholder: "料理名を入力してください", class: 'form-control'
         .col-4
           .form-group
@@ -40,6 +40,7 @@
             .form-group
               = f.fields_for :ingredients do |ingredient|
                 = render 'shared/ingredients_fields', f: ingredient
+              = link_to_add_fields "追加する", f, :ingredients, Ingredient.new
       .row
         .col-12
           %h2.how_to_makes_list_title 作り方
@@ -50,6 +51,7 @@
               .form-group
                 = f.fields_for :how_to_makes do |how_to_make|
                   = render 'shared/how_to_makes_fields', f: how_to_make
+                = link_to_add_fields "追加する", f, :how_to_makes, HowToMake.new
       -# .row
       -#   .col-12
       -#     %h2.ingredients_list_title 材料・調味料
@@ -76,18 +78,5 @@
       -#             %i.fa.fa-plus-circle
       -#             %span.add-nav 行を追加する
       = f.submit "Post", class: "btn btn-primary"
-:javascript
-  $("recipe_image").bind("change", function() {
-    var size_in_megabytes = this.files[0].size/1024/1024;
-    if (size_in_megabytes > 5) {
-      alert("Maximum file size is 5MB. Please choose a smaller file.");
-      $("#recipe_image").val("");
-    }
-  });
-:javascript
-  $(function(){
-      $("#input-text").on("keyup", function() {
-        let countNum = String($(this).val().length);
-        $("#counter").text(countNum + "/255words");
-      });
-    });
+
+= javascript_pack_tag 'shared/_recipe_form'

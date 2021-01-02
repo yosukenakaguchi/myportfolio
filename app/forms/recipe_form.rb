@@ -53,16 +53,7 @@ class RecipeForm
     return if invalid?
     ActiveRecord::Base.transaction do
       tags = split_tag_name.map { |name| Tag.find_or_create_by!(tag_name: name) }
-      recipe.update(title: title,
-                    work: work,
-                    author: author,
-                    content: content,
-                    tags: tags,
-                    user_id: user_id,
-                    image: image,
-                    ingredients: ingredients_attributes,
-                    how_to_makes: how_to_makes_attributes
-                    )
+      recipe.update(title: title, work: work, author: author, content: content, tags: tags, user_id: user_id, image: image, ingredients: ingredients_attributes, how_to_makes: how_to_makes_attributes)
     end
   end
 
