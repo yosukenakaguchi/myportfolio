@@ -22,7 +22,7 @@ module ApplicationHelper
 
   def link_to_remove_field(f, options={})
     # _destroy の hiddenフィールドと削除ボタンを設置
-    f.hidden_field(:_destroy) + link_to('#', class: "remove_field") do
+    f.hidden_field(:_destroy_line) + link_to('#', class: "remove_field") do
       '<i class="fa fa-times-circle"></i>'.html_safe
     end
   end

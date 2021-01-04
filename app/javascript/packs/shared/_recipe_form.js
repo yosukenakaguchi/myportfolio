@@ -19,7 +19,7 @@ $(function(){
       return event.preventDefault();
     });
     $('form').on('click', '.remove_field', function(event) {
-      $(this).prev('input[name*=_destroy]').val('true');
+      $(this).prev('input[name*=_destroy_line]').val('true');
       $(this).closest('div.fields').hide();
       return event.preventDefault();
     });
