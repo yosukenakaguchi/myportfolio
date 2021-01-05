@@ -6,7 +6,7 @@ class RecipeForm
   with_options presence: true do
     validates :title, length: { maximum: 50 }
     validates :work, length: { maximum: 50 }
-    validates :author, length: { maximum: 50 }
+    validates :author, length:  { maximum: 50 }
     validates :content, length: { maximum: 255 }
     validates :user_id
   end
@@ -53,6 +53,7 @@ class RecipeForm
     return if invalid?
     ActiveRecord::Base.transaction do
       tags = split_tag_name.map { |name| Tag.find_or_create_by!(tag_name: name) }
+      destroy_lines
       recipe.update(title: title, work: work, author: author, content: content, tags: tags, user_id: user_id, image: image, ingredients: ingredients_attributes, how_to_makes: how_to_makes_attributes)
     end
   end
@@ -91,6 +92,11 @@ class RecipeForm
     else
       self.how_to_makes_attributes = [{},{},{}]
     end
+  end
+
+  def destroy_lines
+    @ingredients_attributes = @ingredients_attributes.each.reject { |ingredients_attribute| ingredients_attribute[:_destroy_line] == true}
+    @how_to_makes_attributes = @how_to_makes_attributes.each.reject { |how_to_makes_attribute| how_to_makes_attribute[:_destroy_line] == true}
   end
 
   def split_tag_name
