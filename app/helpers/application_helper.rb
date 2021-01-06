@@ -8,7 +8,7 @@ module ApplicationHelper
     end
   end
 
-  def link_to_add_fields(name, f, association, new_object)
+  def link_to_add_fields(f, association, new_object)
 
     id = new_object.object_id
 
@@ -17,7 +17,9 @@ module ApplicationHelper
     end
 
     # This renders a simple link, but passes information into `data` attributes.
-    link_to(name, '#', class: "add_fields", data: {id: id, fields: fields.gsub("\n", "")})
+    link_to('#', class: "add_fields", data: {id: id, fields: fields.gsub("\n", "")}) do
+      '<i class="fa fa-plus-circle"></i><span class="add-nav"> 行を追加する</span>'.html_safe
+    end
   end
 
   def link_to_remove_field(f, options={})

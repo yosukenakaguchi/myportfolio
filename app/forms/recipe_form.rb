@@ -54,7 +54,16 @@ class RecipeForm
     ActiveRecord::Base.transaction do
       tags = split_tag_name.map { |name| Tag.find_or_create_by!(tag_name: name) }
       destroy_lines
-      recipe.update(title: title, work: work, author: author, content: content, tags: tags, user_id: user_id, image: image, ingredients: ingredients_attributes, how_to_makes: how_to_makes_attributes)
+      recipe.update(title: title,
+                    work: work,
+                    author: author,
+                    content: content,
+                    tags: tags,
+                    user_id: user_id,
+                    image: image,
+                    ingredients: ingredients_attributes,
+                    how_to_makes: how_to_makes_attributes
+                    )
     end
   end
 
@@ -94,6 +103,7 @@ class RecipeForm
     end
   end
 
+  #今後の課題として、現状は:_destroy_lineカラムを用意しているが、データベースへ保存する必要がないため仮属性として実装すること
   def destroy_lines
     @ingredients_attributes = @ingredients_attributes.each.reject { |ingredients_attribute| ingredients_attribute[:_destroy_line] == true}
     @how_to_makes_attributes = @how_to_makes_attributes.each.reject { |how_to_makes_attribute| how_to_makes_attribute[:_destroy_line] == true}

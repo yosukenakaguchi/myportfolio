@@ -40,7 +40,7 @@
             .form-group
               = f.fields_for :ingredients do |ingredient|
                 = render 'shared/ingredients_fields', f: ingredient
-              = link_to_add_fields "追加する", f, :ingredients, Ingredient.new
+              = link_to_add_fields f, :ingredients, Ingredient.new
       .row
         .col-12
           %h2.how_to_makes_list_title 作り方
@@ -51,7 +51,7 @@
               .form-group
                 = f.fields_for :how_to_makes do |how_to_make|
                   = render 'shared/how_to_makes_fields', f: how_to_make
-                = link_to_add_fields "追加する", f, :how_to_makes, HowToMake.new
+                = link_to_add_fields f, :how_to_makes, HowToMake.new
       -# .row
       -#   .col-12
       -#     %h2.ingredients_list_title 材料・調味料
