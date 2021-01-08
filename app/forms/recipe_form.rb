@@ -9,7 +9,14 @@ class RecipeForm
     validates :author, length:  { maximum: 50 }
     validates :content, length: { maximum: 255 }
     validates :user_id
+    validates :tag_name
   end
+  validate :if_recipe_form_does_not_have_ingredient
+  validate :if_ingredient_is_more_than_51_words
+  validate :if_recipe_form_does_not_have_amount
+  validate :if_amount_is_more_than_51_words
+  validate :if_recipe_form_does_not_have_make_way
+  validate :if_make_way_is_more_than_256_words
 
   delegate :persisted?, to: :recipe
 
@@ -83,7 +90,7 @@ class RecipeForm
       content: recipe.content,
       user_id: recipe.user_id,
       tag_name: recipe.tags.pluck(:tag_name).join(','),
-      image: recipe.image,
+      image: recipe.image
     }
   end
 
@@ -111,5 +118,59 @@ class RecipeForm
 
   def split_tag_name
     tag_name.split(',')
+  end
+
+  def if_recipe_form_does_not_have_ingredient
+    destroy_lines
+    for a in ingredients_attributes do
+      if a.ingredient.blank?
+        errors.add(:ingredient, "can't be blank")
+      end
+    end
+  end
+
+  def if_ingredient_is_more_than_51_words
+    destroy_lines
+    for a in ingredients_attributes do
+      if a.ingredient.length > 50
+        errors.add(:ingredient, "can't be more than 51 words")
+      end
+    end
+  end
+
+  def if_recipe_form_does_not_have_amount
+    destroy_lines
+    for a in ingredients_attributes do
+      if a.amount.blank?
+        errors.add(:amount, "can't be blank")
+      end
+    end
+  end
+
+  def if_amount_is_more_than_51_words
+    destroy_lines
+    for a in ingredients_attributes do
+      if a.amount.length > 50
+        errors.add(:amount, "can't be more than 51 words")
+      end
+    end
+  end
+
+  def if_recipe_form_does_not_have_make_way
+    destroy_lines
+    for a in how_to_makes_attributes do
+      if a.make_way.blank?
+        errors.add(:make_way, "can't be blank")
+      end
+    end
+  end
+
+  def if_make_way_is_more_than_256_words
+    destroy_lines
+    for a in how_to_makes_attributes do
+      if a.make_way.length > 256
+        errors.add(:make_way, "can't be more than 256 words")
+      end
+    end
   end
 end
