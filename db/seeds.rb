@@ -36,8 +36,12 @@ users = User.order(:created_at).take(6)
   author = Faker::Book.author
   ingredient = Faker::Food.ingredient
   amount = Faker::Food.measurement
-  how_to_make = Faker::Food.description
-  users.each { |user| user.recipes.create!(content: content, title: title, work: work, author: author) }
+  ingredients_attributes = [Ingredient.new(ingredient: ingredient, amount: amount)]
+  make_way = Faker::Food.description
+  how_to_makes_attributes = [HowToMake.new(make_way: make_way)]
+  # split_tag_name = [title, ingredient]
+  # tags = split_tag_name.map { |name| Tag.find_or_create_by!(tag_name: name) }
+  users.each { |user| user.recipes.create!(content: content, title: title, work: work, author: author, ingredients: ingredients_attributes, how_to_makes: how_to_makes_attributes) }
 end
 
 # 以下のリレーションシップを作成する
