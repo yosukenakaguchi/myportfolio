@@ -54,7 +54,7 @@ class RecipesController < ApplicationController
   def destroy
     @recipe.destroy
     flash[:success] = "レシピを削除しました。"
-    redirect_back(fallback_location: root_url)
+    redirect_to root_url
   end
 
   private

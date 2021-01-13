@@ -106,7 +106,7 @@ RSpec.describe RecipeForm do
       it { expect { subject }.not_to change(Recipe, :count) }
       #destroyの挙動要確認
       it do
-        expect { recipe.destroy }.to change {Recipe.count}.by(-1)
+        expect { recipe.destroy }.to change(Recipe, :count).by(-1)
       end
     end
 
