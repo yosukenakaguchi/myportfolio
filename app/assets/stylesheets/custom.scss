@@ -471,7 +471,8 @@ input {
 }
 
 .field_with_errors {
-  input {
+  input,
+  textarea {
     @extend .is-invalid;
   }
   .form-control {

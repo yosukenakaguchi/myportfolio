@@ -45,9 +45,16 @@ users = User.order(:created_at).take(6)
   make_way3 = Faker::Food.description
   split_tag_name = [title, ingredient1]
   tags = split_tag_name.map { |name| Tag.find_or_create_by!(tag_name: name) }
-  users.each { |user| user.recipes.create!(content: content, title: title, work: work, author: author, tags: tags,
-    ingredients: [Ingredient.new(ingredient: ingredient1, amount: amount1), Ingredient.new(ingredient: ingredient2, amount: amount2), Ingredient.new(ingredient: ingredient3, amount: amount3)],
-    how_to_makes: [HowToMake.new(make_way: make_way1), HowToMake.new(make_way: make_way2), HowToMake.new(make_way: make_way3)])}
+  users.each {|user|
+    user.recipes.create!(content: content, title: title, work: work, author: author, tags: tags,
+                         ingredients: [
+                          Ingredient.new(ingredient: ingredient1, amount: amount1),
+                          Ingredient.new(ingredient: ingredient2, amount: amount2),
+                          Ingredient.new(ingredient: ingredient3, amount: amount3)],
+                         how_to_makes: [
+                          HowToMake.new(make_way: make_way1),
+                          HowToMake.new(make_way: make_way2),
+                          HowToMake.new(make_way: make_way3)])}
 end
 
 # 以下のリレーションシップを作成する

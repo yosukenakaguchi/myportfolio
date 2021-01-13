@@ -1,5 +1,6 @@
 class RecipeForm
   include ActiveModel::Model
+  include ActiveModel::Validations::Callbacks
 
   attr_accessor :title, :work, :author, :content, :user_id, :tag_name, :image
 
@@ -8,15 +9,14 @@ class RecipeForm
     validates :work, length: { maximum: 50 }
     validates :author, length:  { maximum: 50 }
     validates :content, length: { maximum: 255 }
+    validates :tag_name, length:  { maximum: 50 }
     validates :user_id
-    validates :tag_name
   end
-  validate :if_recipe_form_does_not_have_ingredient
-  validate :if_ingredient_is_more_than_51_words
-  validate :if_recipe_form_does_not_have_amount
-  validate :if_amount_is_more_than_51_words
-  validate :if_recipe_form_does_not_have_make_way
-  validate :if_make_way_is_more_than_256_words
+  #ingredientモデル及びhow_to_makeモデルのカスタムバリデーション
+  before_validation :destroy_lines
+  validate :if_recipe_form_does_not_have_ingredient_or_that_is_more_than_51_words,
+           :if_recipe_form_does_not_have_amount_or_that_is_more_than_51_words,
+           :if_recipe_form_does_not_have_make_way_or_that_is_more_than_256_words
 
   delegate :persisted?, to: :recipe
 
@@ -60,8 +60,7 @@ class RecipeForm
     return if invalid?
     ActiveRecord::Base.transaction do
       tags = split_tag_name.map { |name| Tag.find_or_create_by!(tag_name: name) }
-      destroy_lines
-      recipe.update(title: title,
+      recipe.update!(title: title,
                     work: work,
                     author: author,
                     content: content,
@@ -72,6 +71,7 @@ class RecipeForm
                     how_to_makes: how_to_makes_attributes
                     )
     end
+    self
   end
 
   def to_model
@@ -120,56 +120,32 @@ class RecipeForm
     tag_name.split(',')
   end
 
-  def if_recipe_form_does_not_have_ingredient
-    destroy_lines
+  def if_recipe_form_does_not_have_ingredient_or_that_is_more_than_51_words
     for a in ingredients_attributes do
       if a.ingredient.blank?
         errors.add(:ingredient, "can't be blank")
+      elsif a.ingredient.length > 50
+        errors.add(:ingredient, "is too long (maximum is 50 characters)")
       end
     end
   end
 
-  def if_ingredient_is_more_than_51_words
-    destroy_lines
-    for a in ingredients_attributes do
-      if a.ingredient.length > 50
-        errors.add(:ingredient, "can't be more than 51 words")
-      end
-    end
-  end
-
-  def if_recipe_form_does_not_have_amount
-    destroy_lines
+  def if_recipe_form_does_not_have_amount_or_that_is_more_than_51_words
     for a in ingredients_attributes do
       if a.amount.blank?
         errors.add(:amount, "can't be blank")
+      elsif a.amount.length > 50
+        errors.add(:amount, "is too long (maximum is 50 characters)")
       end
     end
   end
 
-  def if_amount_is_more_than_51_words
-    destroy_lines
-    for a in ingredients_attributes do
-      if a.amount.length > 50
-        errors.add(:amount, "can't be more than 51 words")
-      end
-    end
-  end
-
-  def if_recipe_form_does_not_have_make_way
-    destroy_lines
+  def if_recipe_form_does_not_have_make_way_or_that_is_more_than_256_words
     for a in how_to_makes_attributes do
       if a.make_way.blank?
         errors.add(:make_way, "can't be blank")
-      end
-    end
-  end
-
-  def if_make_way_is_more_than_256_words
-    destroy_lines
-    for a in how_to_makes_attributes do
-      if a.make_way.length > 256
-        errors.add(:make_way, "can't be more than 256 words")
+      elsif a.make_way.length > 255
+        errors.add(:make_way, "is too long (maximum is 255 characters)")
       end
     end
   end
