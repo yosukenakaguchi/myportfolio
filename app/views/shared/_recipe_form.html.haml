@@ -1,4 +1,4 @@
-= form_with(model: @recipe_form, local: true) do |f|
+= form_with(model: @recipe_form, local: true, builder: CustomFormBuilder) do |f|
   = render 'shared/error_messages', object: f.object
   %form
     .left.jumbotron

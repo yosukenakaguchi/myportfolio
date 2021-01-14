@@ -176,21 +176,21 @@ RSpec.describe RecipeForm do
         it do
           subject
           expect(form.errors.full_messages).to contain_exactly(
-            "Title can't be blank",
-            "Content can't be blank",
-            "Work can't be blank",
-            "Author can't be blank",
-            "Tag name can't be blank",
-            "Ingredient can't be blank",
-            "Ingredient can't be blank",
-            "Ingredient can't be blank",
-            "Amount can't be blank",
-            "Amount can't be blank",
-            "Amount can't be blank",
-            "Make way can't be blank",
-            "Make way can't be blank",
-            "Make way can't be blank",
-            "User can't be blank"
+            "料理名を入力してください",
+            "作品名を入力してください",
+            "作者を入力してください",
+            "紹介文を入力してください",
+            "タグを入力してください",
+            "材料を入力してください",
+            "材料を入力してください",
+            "材料を入力してください",
+            "分量を入力してください",
+            "分量を入力してください",
+            "分量を入力してください",
+            "作り方を入力してください",
+            "作り方を入力してください",
+            "作り方を入力してください",
+            "Userを入力してください"
           )
         end
       end
@@ -218,20 +218,20 @@ RSpec.describe RecipeForm do
         it do
           subject
           expect(form.errors.full_messages).to contain_exactly(
-            "Title is too long (maximum is 50 characters)",
-            "Content is too long (maximum is 255 characters)",
-            "Author is too long (maximum is 50 characters)",
-            "Work is too long (maximum is 50 characters)",
-            "Tag name is too long (maximum is 50 characters)",
-            "Ingredient is too long (maximum is 50 characters)",
-            "Ingredient is too long (maximum is 50 characters)",
-            "Ingredient is too long (maximum is 50 characters)",
-            "Amount is too long (maximum is 50 characters)",
-            "Amount is too long (maximum is 50 characters)",
-            "Amount is too long (maximum is 50 characters)",
-            "Make way is too long (maximum is 255 characters)",
-            "Make way is too long (maximum is 255 characters)",
-            "Make way is too long (maximum is 255 characters)"
+            "料理名は50文字以内で入力してください",
+            "紹介文は255文字以内で入力してください",
+            "作者は50文字以内で入力してください",
+            "作品名は50文字以内で入力してください",
+            "タグは50文字以内で入力してください",
+            "材料は50文字以内で入力してください",
+            "材料は50文字以内で入力してください",
+            "材料は50文字以内で入力してください",
+            "分量は50文字以内で入力してください",
+            "分量は50文字以内で入力してください",
+            "分量は50文字以内で入力してください",
+            "作り方は255文字以内で入力してください",
+            "作り方は255文字以内で入力してください",
+            "作り方は255文字以内で入力してください"
           )
         end
       end

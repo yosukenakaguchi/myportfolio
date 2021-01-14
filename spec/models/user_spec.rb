@@ -9,25 +9,25 @@ RSpec.describe User, type: :model do
   it "名前がなければ無効な状態である" do
     user = FactoryBot.build(:user, :name_nil)
     user.valid?
-    expect(user.errors[:name]).to include("can't be blank")
+    expect(user.errors[:name]).to include("を入力してください")
   end
 
   it "ユーザー名が５１文字以上の場合は登録できない" do
     user = FactoryBot.build(:user, :name_more_than_50words)
     user.valid?
-    expect(user.errors[:name]).to include('is too long (maximum is 50 characters)')
+    expect(user.errors[:name]).to include('は50文字以内で入力してください')
   end
 
   it "メールアドレスがなければ無効な状態である" do
     user = FactoryBot.build(:user, :email_nil)
     user.valid?
-    expect(user.errors[:email]).to include("can't be blank")
+    expect(user.errors[:email]).to include("を入力してください")
   end
 
   it "メールアドレスが256文字以上の場合は登録できない" do
     user = FactoryBot.build(:user, :email_more_than_255words)
     user.valid?
-    expect(user.errors[:email]).to include('is too long (maximum is 255 characters)')
+    expect(user.errors[:email]).to include('は255文字以内で入力してください')
   end
 
   it "メールアドレスが一意である" do
@@ -61,12 +61,12 @@ RSpec.describe User, type: :model do
   it "パスワードがなければ無効な状態である" do
     user = FactoryBot.build(:user, :no_password)
     user.valid?
-    expect(user.errors[:password]).to include("can't be blank")
+    expect(user.errors[:password]).to include("を入力してください")
   end
 
   it "パスワードが5文字以下の場合は登録できない" do
     user = FactoryBot.build(:user, :password_less_than_6words)
     user.valid?
-    expect(user.errors[:password]).to include('is too short (minimum is 6 characters)')
+    expect(user.errors[:password]).to include('は6文字以上で入力してください')
   end
 end
