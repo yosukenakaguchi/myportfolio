@@ -1,7 +1,7 @@
 - if object.errors.any?
   #error_explanation
     .alert.alert-danger
-      The form contains #{pluralize(object.errors.count, "error")}.
+      #{object.errors.count}つの入力エラーがあります
     %ul
       - object.errors.full_messages.each do |msg|
         %li= msg

@@ -1,0 +1,22 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+    attributes:
+      user:
+        email: Eメール
+        name: 名前
+        password: パスワード
+        password_confirmation: 再確認用パスワード
+  activemodel:
+    attributes:
+      recipe_form:
+        title: 料理名
+        image: 料理写真
+        work: 作品名
+        author: 作者
+        content: 紹介文
+        tag_name: タグ
+        ingredient: 材料
+        amount: 分量
+        make_way: 作り方

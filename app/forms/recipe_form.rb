@@ -123,9 +123,9 @@ class RecipeForm
   def if_recipe_form_does_not_have_ingredient_or_that_is_more_than_51_words
     for a in ingredients_attributes do
       if a.ingredient.blank?
-        errors.add(:ingredient, "can't be blank")
+        errors.add(:ingredient, "を入力してください")
       elsif a.ingredient.length > 50
-        errors.add(:ingredient, "is too long (maximum is 50 characters)")
+        errors.add(:ingredient, "は50文字以内で入力してください")
       end
     end
   end
@@ -133,9 +133,9 @@ class RecipeForm
   def if_recipe_form_does_not_have_amount_or_that_is_more_than_51_words
     for a in ingredients_attributes do
       if a.amount.blank?
-        errors.add(:amount, "can't be blank")
+        errors.add(:amount, "を入力してください")
       elsif a.amount.length > 50
-        errors.add(:amount, "is too long (maximum is 50 characters)")
+        errors.add(:amount, "は50文字以内で入力してください")
       end
     end
   end
@@ -143,9 +143,9 @@ class RecipeForm
   def if_recipe_form_does_not_have_make_way_or_that_is_more_than_256_words
     for a in how_to_makes_attributes do
       if a.make_way.blank?
-        errors.add(:make_way, "can't be blank")
+        errors.add(:make_way, "を入力してください")
       elsif a.make_way.length > 255
-        errors.add(:make_way, "is too long (maximum is 255 characters)")
+        errors.add(:make_way, "は255文字以内で入力してください")
       end
     end
   end
