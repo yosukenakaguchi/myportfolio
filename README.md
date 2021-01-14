@@ -27,6 +27,7 @@
 - Ruby on Rails 6.0.3.4
   - Rspec によるテスト
   - RuboCop による静的コード解析
+  - Brakeman によるアプリケーションの脆弱性静的解析
 
 ### インフラ
 

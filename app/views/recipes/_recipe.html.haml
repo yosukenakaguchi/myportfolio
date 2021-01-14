@@ -6,7 +6,7 @@
           %span By
           %span.user= link_to recipe.user.name, recipe.user
           %span.timestamp
-            Posted #{time_ago_in_words(recipe.created_at)} ago.
+            #{time_ago_in_words(recipe.created_at)}前に投稿されました
           - if current_user?(recipe.user)
             = link_to "delete", recipe, method: :delete, |
               data: { confirm: "You sure?" }             |

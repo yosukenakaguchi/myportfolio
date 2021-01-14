@@ -44,3 +44,19 @@ Rails/SkipsModelValidations:
 #Do not prefix reader method names with get_.を無効
 Naming/AccessorMethodName:
   Enabled: false
+
+#フォームオブジェクトのため、肥大化は許容する
+Metrics/ClassLength:
+  Exclude:
+    - "app/forms/recipe_form.rb"
+
+#Memoized variable @ingredients_attributes does not match method name ingredients. Use @ingredients instead.を無効
+#Memoized variable @how_to_makes_attributes does not match method name how_to_makes. Use @how_to_makes instead.を無効
+Naming/MemoizedInstanceVariableName:
+  Exclude:
+    - "app/forms/recipe_form.rb"
+
+#3文字以下であるがメゾットの引数のfを許容する
+Naming/MethodParameterName:
+  Exclude:
+    - "app/helpers/application_helper.rb"

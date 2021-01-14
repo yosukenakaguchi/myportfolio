@@ -7,7 +7,7 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
     super + error(method)
   end
 
-  #ネストした要素であるtext_field(ingredients_fields及びhow_to_makes_fields)へのアクセスが分からない
+  # ネストした要素であるtext_field(ingredients_fields及びhow_to_makes_fields)へのアクセスが分からない
   def fields_for(method, record_object = nil, options = {}, &block)
     super + error(method)
   end
@@ -19,14 +19,14 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def error_message(method)
-    (@object.errors[method].size > 0) ? I18n.t("activemodel.attributes.#{@object.model_name.singular}.#{method}") + @object.errors[method].first : ""
+    !@object.errors[method].empty? ? I18n.t("activemodel.attributes.#{@object.model_name.singular}.#{method}") + @object.errors[method].first : ""
   end
 
   def error_html(msg)
-    return "" unless msg.present?
+    return "" if msg.blank?
 
-    @template.content_tag(:div, class: "has-error") do
-      @template.concat (@template.content_tag(:span, class: "help-block") do
+    @template.tag.div(class: "has-error") do
+      @template.concat(@template.tag.span(class: "help-block") do
         msg
       end)
     end

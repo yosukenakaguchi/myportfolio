@@ -12,7 +12,7 @@ class RecipeForm
     validates :tag_name, length:  { maximum: 50 }
     validates :user_id
   end
-  #ingredientモデル及びhow_to_makeモデルのカスタムバリデーション
+  # ingredientモデル及びhow_to_makeモデルのカスタムバリデーション
   before_validation :destroy_lines
   validate :if_recipe_form_does_not_have_ingredient_or_that_is_more_than_51_words,
            :if_recipe_form_does_not_have_amount_or_that_is_more_than_51_words,
@@ -58,18 +58,18 @@ class RecipeForm
 
   def save
     return if invalid?
+
     ActiveRecord::Base.transaction do
       tags = split_tag_name.map { |name| Tag.find_or_create_by!(tag_name: name) }
       recipe.update!(title: title,
-                    work: work,
-                    author: author,
-                    content: content,
-                    tags: tags,
-                    user_id: user_id,
-                    image: image,
-                    ingredients: ingredients_attributes,
-                    how_to_makes: how_to_makes_attributes
-                    )
+                     work: work,
+                     author: author,
+                     content: content,
+                     tags: tags,
+                     user_id: user_id,
+                     image: image,
+                     ingredients: ingredients_attributes,
+                     how_to_makes: how_to_makes_attributes)
     end
     self
   end
@@ -98,7 +98,7 @@ class RecipeForm
     if recipe.persisted?
       @ingredients_attributes = recipe.ingredients
     else
-      self.ingredients_attributes = [{},{},{}]
+      self.ingredients_attributes = [{}, {}, {}]
     end
   end
 
@@ -106,14 +106,14 @@ class RecipeForm
     if recipe.persisted?
       @how_to_makes_attributes = recipe.how_to_makes
     else
-      self.how_to_makes_attributes = [{},{},{}]
+      self.how_to_makes_attributes = [{}, {}, {}]
     end
   end
 
-  #今後の課題として、現状は:_destroy_lineカラムを用意しているが、データベースへ保存する必要がないため仮属性として実装すること
+  # 今後の課題として、現状は:_destroy_lineカラムを用意しているが、データベースへ保存する必要がないため仮属性として実装すること
   def destroy_lines
-    @ingredients_attributes = @ingredients_attributes.each.reject { |ingredients_attribute| ingredients_attribute[:_destroy_line] == true}
-    @how_to_makes_attributes = @how_to_makes_attributes.each.reject { |how_to_makes_attribute| how_to_makes_attribute[:_destroy_line] == true}
+    @ingredients_attributes = @ingredients_attributes.each.reject { |ingredients_attribute| ingredients_attribute[:_destroy_line] == true }
+    @how_to_makes_attributes = @how_to_makes_attributes.each.reject { |how_to_makes_attribute| how_to_makes_attribute[:_destroy_line] == true }
   end
 
   def split_tag_name
@@ -121,7 +121,7 @@ class RecipeForm
   end
 
   def if_recipe_form_does_not_have_ingredient_or_that_is_more_than_51_words
-    for a in ingredients_attributes do
+    ingredients_attributes.each do |a|
       if a.ingredient.blank?
         errors.add(:ingredient, "を入力してください")
       elsif a.ingredient.length > 50
@@ -131,7 +131,7 @@ class RecipeForm
   end
 
   def if_recipe_form_does_not_have_amount_or_that_is_more_than_51_words
-    for a in ingredients_attributes do
+    ingredients_attributes.each do |a|
       if a.amount.blank?
         errors.add(:amount, "を入力してください")
       elsif a.amount.length > 50
@@ -141,7 +141,7 @@ class RecipeForm
   end
 
   def if_recipe_form_does_not_have_make_way_or_that_is_more_than_256_words
-    for a in how_to_makes_attributes do
+    how_to_makes_attributes.each do |a|
       if a.make_way.blank?
         errors.add(:make_way, "を入力してください")
       elsif a.make_way.length > 255
