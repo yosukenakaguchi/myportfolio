@@ -3,6 +3,8 @@
     .row
       .col-11
         = f.text_field :make_way, placeholder: "作り方を入力してください", class: 'form-control'
+        - if @recipe_form.errors.include?(:"make_way#{f.index}")
+          %p{:style => "color: red;"}
+            = @recipe_form.errors.full_messages_for(:"make_way#{f.index}").first
       .col-1
-        -# %i.fa.fa-times-circle
         = link_to_remove_field(f, {})

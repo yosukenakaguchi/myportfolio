@@ -121,32 +121,38 @@ class RecipeForm
   end
 
   def if_recipe_form_does_not_have_ingredient_or_that_is_more_than_51_words
+    index = 0
     ingredients_attributes.each do |a|
       if a.ingredient.blank?
-        errors.add(:ingredient, "を入力してください")
+        errors.add("ingredient#{index}", "を入力してください")
       elsif a.ingredient.length > 50
-        errors.add(:ingredient, "は50文字以内で入力してください")
+        errors.add("ingredient#{index}", "は50文字以内で入力してください")
       end
+      index += 1
     end
   end
 
   def if_recipe_form_does_not_have_amount_or_that_is_more_than_51_words
+    index = 0
     ingredients_attributes.each do |a|
       if a.amount.blank?
-        errors.add(:amount, "を入力してください")
+        errors.add("amount#{index}", "を入力してください")
       elsif a.amount.length > 50
-        errors.add(:amount, "は50文字以内で入力してください")
+        errors.add("amount#{index}", "は50文字以内で入力してください")
       end
+      index += 1
     end
   end
 
   def if_recipe_form_does_not_have_make_way_or_that_is_more_than_256_words
+    index = 0
     how_to_makes_attributes.each do |a|
       if a.make_way.blank?
-        errors.add(:make_way, "を入力してください")
+        errors.add("make_way#{index}", "を入力してください")
       elsif a.make_way.length > 255
-        errors.add(:make_way, "は255文字以内で入力してください")
+        errors.add("make_way#{index}", "は255文字以内で入力してください")
       end
+      index += 1
     end
   end
 end

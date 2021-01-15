@@ -524,7 +524,7 @@ input {
 
 .ingredients_list {
   border-top: #d5d2cd solid 1px;
-  padding: 0.5em 0 0.5em 1em;
+  padding: 0.5em 0 0em 0em;
   list-style: none;
   line-height: 2;
   .ingredients_list_item {
@@ -532,6 +532,9 @@ input {
   }
   .amount {
     float: right;
+  }
+  ol {
+    padding-left: 1em;
   }
 }
 

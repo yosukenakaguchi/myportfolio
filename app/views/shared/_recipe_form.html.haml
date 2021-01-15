@@ -1,5 +1,5 @@
 = form_with(model: @recipe_form, local: true, builder: CustomFormBuilder) do |f|
-  = render 'shared/error_messages', object: f.object
+  = render 'shared/recipe_form_error_messages', object: f.object
   %form
     .left.jumbotron
       .row
@@ -37,10 +37,11 @@
       .ingredients_list
         .row
           .col-12
-            .form-group
-              = f.fields_for :ingredients do |ingredient|
-                = render 'shared/ingredients_fields', f: ingredient
-              = link_to_add_fields f, :ingredients, Ingredient.new
+            %ol
+              .form-group
+                = f.fields_for :ingredients do |ingredient|
+                  = render 'shared/ingredients_fields', f: ingredient
+                = link_to_add_fields f, :ingredients, Ingredient.new
       .row
         .col-12
           %h2.how_to_makes_list_title 作り方

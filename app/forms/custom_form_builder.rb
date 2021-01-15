@@ -7,9 +7,8 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
     super + error(method)
   end
 
-  # ネストした要素であるtext_field(ingredients_fields及びhow_to_makes_fields)へのアクセスが分からない
   def fields_for(method, record_object = nil, options = {}, &block)
-    super + error(method)
+    super
   end
 
   private
@@ -26,7 +25,7 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
     return "" if msg.blank?
 
     @template.tag.div(class: "has-error") do
-      @template.concat(@template.tag.span(class: "help-block") do
+      @template.concat(@template.tag.p(:style => "color: red;") do
         msg
       end)
     end
