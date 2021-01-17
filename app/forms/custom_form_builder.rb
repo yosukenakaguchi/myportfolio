@@ -25,7 +25,7 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
     return "" if msg.blank?
 
     @template.tag.div(class: "has-error") do
-      @template.concat(@template.tag.p(:style => "color: red;") do
+      @template.concat(@template.tag.p(style: "color: red;") do
         msg
       end)
     end
