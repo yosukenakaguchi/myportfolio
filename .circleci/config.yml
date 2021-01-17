@@ -15,7 +15,7 @@ jobs:
 
     working_directory: ~/myportfolio
 
-    steps:
+    step:
       - checkout
       # Gemfile.lockが変更された場合、キャッシュを変更する設定
       - restore_cache:
