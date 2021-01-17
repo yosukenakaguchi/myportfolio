@@ -1,0 +1,77 @@
+version: 2
+jobs:
+  build:
+    docker:
+      # -legacyの有無
+      - image: circleci/ruby:2.7.1-node-browsers
+        environment:
+          - BUNDLER_VERSION: 2.1.4
+          - RAILS_ENV: test
+      - image: circleci/mysql:8.0.21
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+          - MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+          - MYSQL_ROOT_HOST: "%"
+
+    working_directory: ~/myportfolio
+
+    steps:
+      - checkout
+      # Gemfile.lockが変更された場合、キャッシュを変更する設定
+      - restore_cache:
+        keys:
+          - v1-dependencies-{{ checksum "Gemfile.lock" }}
+          - v1-dependencies-
+
+      - run:
+        name: install dependencies
+        command: |
+          gem install bundler -v 2.1.4
+          bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+      - save_cache:
+        paths:
+          - ./vendor/bundle
+        key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+
+      # Database setup
+      # - run: mv ./config/database.yml.ci ./config/database.yml
+      - run: bundle exec rake db:create
+      - run: bundle exec rake db:schema:load
+
+      - run:
+        name: install yarn
+        command: yarn install
+
+      - run:
+        name: install webpack
+        command: bundle exec bin/webpack
+
+      # Rubocop
+      - run:
+        name: Rubocop
+        command: bundle exec rubocop
+      # RSpec
+      - run:
+        name: RSpec
+        command: bundle exec rspec -b --format documentation
+
+      #RSpec自動化
+      - run:
+        name: RSpec
+        command: |
+          mkdir /tmp/test-reports
+          TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \
+            circleci tests split --split-by=timings)"
+          bundle exec rspec \
+            --format progress \
+            --format RspecJunitFormatter \
+            --out /tmp/test-results/rspec.xml \
+            --format progress \
+            $TEST_FILES
+      #レポートと結果を保存
+      - store_test_results:
+        path: /tmp/test-reports
+      - store_artifacts:
+        path: /tmp/test-reports
+        destination: test-reports
