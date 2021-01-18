@@ -6,3 +6,5 @@ test:
   port: 3306
   host: "127.0.0.1"
   database: ci_test
+  cap_add:
+    - SYS_NICE
