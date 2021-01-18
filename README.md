@@ -36,6 +36,7 @@
 - AWS（VPC | S3 | ELB | EC2 | Route53 | IAM | RDS(MySQL) | Cloud Watch）
 - SendGrid
 - Docker, Docker-compose(開発環境)
+- CircleCI を用いたテストの自動化
 
 ## インフラ構成図
 
@@ -69,11 +70,9 @@
 ## 今後の課題・追加したい機能
 
 - React による UI/UX の改善(現在、React を学習中)
-- Rspec によるテスト追加
 - ユーザーがタグをフォローできる機能
   (映画・文学の嗜好性の指標でのユーザー間の交流を促す目的として)
 - 投稿の作品または監督・著者別の五十音検索
   (映画・文学の指標からレシピを検索できる UX の強化)
 - 本番環境で AWS（ECR | ECS)を使用した Docker 環境での運用
-- CircleCI/CD の導入
 - Terraform の導入
