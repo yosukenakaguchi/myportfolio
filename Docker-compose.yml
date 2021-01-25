@@ -1,4 +1,4 @@
-version: "3"
+version: "3.7"
 services:
   app:
     build:
@@ -21,7 +21,7 @@ services:
       MYSQL_USER: myportfolio
       MYSQL_PASSWORD: Pierre51020!
     volumes:
-      - mysql_data:/var/lib/mysql
+      - mysql_data:/var/lib/mysql:cached
     ports:
       - "3306:3306"
 
