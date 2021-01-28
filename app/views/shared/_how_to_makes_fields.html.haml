@@ -2,8 +2,7 @@
   %li
     .row
       .col-11
-        - field_with_errors = "field_with_errors" if @recipe_form.errors.include?(:"make_way#{f.index}")
-        .form-group{class: field_with_errors}
+        .form-group{class: @recipe_form.errors.include?(:"make_way#{f.index}")? 'field_with_errors' : nil}
           = f.text_field :make_way, placeholder: "作り方を入力してください", class: 'form-control'
           - if @recipe_form.errors.include?(:"make_way#{f.index}")
             %p{:style => "color: red;"}
