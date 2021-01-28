@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.8"
 services:
   app:
     build:
@@ -6,9 +6,10 @@ services:
     command: bundle exec puma -C config/puma.rb
     volumes:
       - .:/myportfolio:cached
-      - public-data:/myportfolio/public:cached
-      - tmp-data:/myportfolio/tmp:cached
-      - log-data:/myportfolio/log:cached
+      - vendor:/myportfolio/vendor
+      - public-data:/myportfolio/public
+      - tmp-data:/myportfolio/tmp
+      - log-data:/myportfolio/log
     depends_on:
       - db
 
@@ -21,7 +22,7 @@ services:
       MYSQL_USER: myportfolio
       MYSQL_PASSWORD: Pierre51020!
     volumes:
-      - mysql_data:/var/lib/mysql:cached
+      - mysql_data:/var/lib/mysql
     ports:
       - "3306:3306"
 
@@ -42,8 +43,8 @@ services:
     build:
       context: containers/nginx
     volumes:
-      - public-data:/myportfolio/public:cached
-      - tmp-data:/myportfolio/tmp:cached
+      - public-data:/myportfolio/public
+      - tmp-data:/myportfolio/tmp
     ports:
       - 80:80
     depends_on:
@@ -53,3 +54,4 @@ volumes:
   public-data:
   tmp-data:
   log-data:
+  vendor:

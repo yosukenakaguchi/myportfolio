@@ -53,31 +53,6 @@
                 = f.fields_for :how_to_makes do |how_to_make|
                   = render 'shared/how_to_makes_fields', f: how_to_make
                 = link_to_add_fields f, :how_to_makes, HowToMake.new
-      -# .row
-      -#   .col-12
-      -#     %h2.ingredients_list_title 材料・調味料
-      -# .ingredients_list
-      -#   .row
-      -#     .col-12
-      -#       .form-group
-      -#         = f.fields_for :ingredients do |ingredient|
-      -#           = render 'shared/ingredients_fields', f: ingredient
-      -#         = link_to_add_association f, :ingredients, partial: 'shared/ingredients_fields' do
-      -#           %i.fa.fa-plus-circle
-      -#           %span.add-nav 行を追加する
-      -# .row
-      -#   .col-12
-      -#     %h2.how_to_makes_list_title 作り方
-      -# .how_to_makes_list
-      -#   .row
-      -#     .col-12
-      -#       %ol
-      -#         .form-group
-      -#           = f.fields_for :how_to_makes do |how_to_make|
-      -#             = render 'shared/how_to_makes_fields', f: how_to_make
-      -#           = link_to_add_association f, :how_to_makes, partial: 'shared/how_to_makes_fields' do
-      -#             %i.fa.fa-plus-circle
-      -#             %span.add-nav 行を追加する
       = f.submit "Post", class: "btn btn-primary"
 
 = javascript_pack_tag 'shared/_recipe_form'
