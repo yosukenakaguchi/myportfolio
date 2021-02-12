@@ -1,10 +1,10 @@
 module ApplicationHelper
   def full_title(page_title = '')
     base_title = "映画・文学めし"
-    if page_title.empty?
-      base_title
-    else
+    if page_title.present?
       "#{page_title} | #{base_title}"
+    else
+      base_title
     end
   end
 

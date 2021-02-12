@@ -58,10 +58,10 @@ RUN rm -r /myportfolio/tmp/cache
 
 USER rails
 
-VOLUME /myportfolio/public
+# VOLUME /myportfolio/public
 
-# puma.sockを配置するディレクトリを作成
-RUN mkdir -p tmp/sockets
+# # puma.sockを配置するディレクトリを作成
+# RUN mkdir -p tmp/sockets
 
 # 実行時にコマンド指定が無い場合に実行されるコマンド
 CMD ["bin/rails", "s", "-b", "0.0.0.0"]

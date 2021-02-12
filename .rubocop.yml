@@ -60,3 +60,14 @@ Naming/MemoizedInstanceVariableName:
 Naming/MethodParameterName:
   Exclude:
     - "app/helpers/application_helper.rb"
+
+#Unnecessary spacing detected.を無効
+Layout/ExtraSpacing:
+  Enabled: false
+
+Layout/HashAlignment:
+  Exclude:
+    - "app/models/recipe.rb"
+
+Style/IfUnlessModifier:
+  Enabled: false

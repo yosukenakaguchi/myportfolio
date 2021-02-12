@@ -3,11 +3,13 @@ class CommentsController < ApplicationController
     @recipe = Recipe.find(params[:recipe_id])
     @comment = @recipe.comments.build(comment_params)
     @comment.user_id = current_user.id
+
     render :index if @comment.save
   end
 
   def destroy
     @comment = Comment.find(params[:id])
+
     render :index if @comment.destroy
   end
 

@@ -18,7 +18,7 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def error_message(method)
-    !@object.errors[method].empty? ? I18n.t("activemodel.attributes.#{@object.model_name.singular}.#{method}") + @object.errors[method].first : ""
+    @object.errors[method].present? ? I18n.t("activemodel.attributes.#{@object.model_name.singular}.#{method}") + @object.errors[method].first : ""
   end
 
   def error_html(msg)

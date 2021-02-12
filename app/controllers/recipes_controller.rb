@@ -1,18 +1,19 @@
 class RecipesController < ApplicationController
   before_action :logged_in_user, only: %i[new edit update create destroy]
-  before_action :correct_user,   only: %i[edit update destroy]
+  before_action :check_valid_user,   only: %i[edit update destroy]
 
   def index
     @recipes = Recipe.with_attached_image.page(params[:page]).per(15)
+
     if params[:tag_id]
       @tag = Tag.find(params[:tag_id])
-      @search_recipes = @tag.recipes.all.page(params[:page]).per(15)
+      @search_recipes = @tag.recipes.page(params[:page]).per(15)
       @title = @tag.tag_name
     elsif params[:author]
-      @search_recipes = Recipe.where(author: params[:author].to_s).all.page(params[:page]).per(15)
+      @search_recipes = Recipe.where(author: params[:author].to_s).page(params[:page]).per(15)
       @title = params[:author]
     elsif params[:work]
-      @search_recipes = Recipe.where(work: params[:work].to_s).all.page(params[:page]).per(15)
+      @search_recipes = Recipe.where(work: params[:work].to_s).page(params[:page]).per(15)
       @title = params[:work]
     end
   end
@@ -22,7 +23,7 @@ class RecipesController < ApplicationController
   end
 
   def show
-    @recipe = Recipe.find_by(id: params[:id])
+    @recipe = Recipe.find(params[:id])
     @comment = Comment.new
     @comments = @recipe.comments.includes(:user)
   end
@@ -34,8 +35,7 @@ class RecipesController < ApplicationController
   def update
     @recipe_form = RecipeForm.new(recipe_params, recipe: @recipe)
     if @recipe_form.save
-      flash[:success] = "レシピの編集が完了しました。"
-      redirect_to @recipe
+      redirect_to @recipe, success: "レシピの編集が完了しました。"
     else
       render :edit
     end
@@ -44,8 +44,7 @@ class RecipesController < ApplicationController
   def create
     @recipe_form = RecipeForm.new(recipe_params)
     if @recipe_form.save
-      flash[:success] = "レシピの投稿が完了しました。"
-      redirect_to root_url
+      redirect_to root_url, success: "レシピの投稿が完了しました。"
     else
       render :new
     end
@@ -53,8 +52,7 @@ class RecipesController < ApplicationController
 
   def destroy
     @recipe.destroy
-    flash[:success] = "レシピを削除しました。"
-    redirect_to root_url
+    redirect_to root_url, success: "レシピを削除しました。"
   end
 
   private
@@ -67,7 +65,7 @@ class RecipesController < ApplicationController
     ).merge(user_id: current_user.id)
   end
 
-  def correct_user
+  def check_valid_user
     @recipe = current_user.recipes.find_by(id: params[:id])
     redirect_to root_url if @recipe.nil?
   end

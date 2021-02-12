@@ -9,7 +9,7 @@ class RecipeForm
     validates :work, length: { maximum: 50 }
     validates :author, length:  { maximum: 50 }
     validates :content, length: { maximum: 255 }
-    validates :tag_name, length:  { maximum: 50 }
+    validates :tag_name, length:  { maximum: 50 }, allow_blank: true
     validates :user_id
   end
   # ingredientモデル及びhow_to_makeモデルのカスタムバリデーション

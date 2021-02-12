@@ -1,8 +1,9 @@
 class FavoritesController < ApplicationController
-  before_action :set_recipe
+  before_action :set_recipe, only: %i[create destroy]
 
   def index
     @recipes = current_user.favorite_recipes
+
     render @recipes
   end
 
@@ -12,7 +13,7 @@ class FavoritesController < ApplicationController
   end
 
   def destroy
-    favorite = Favorite.find_by(user_id: current_user.id, recipe_id: params[:recipe_id])
+    favorite = Favorite.find_by!(user_id: current_user.id, recipe_id: params[:recipe_id])
     favorite.destroy
     @recipe.reload
   end

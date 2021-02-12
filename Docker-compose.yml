@@ -52,6 +52,9 @@ services:
 volumes:
   mysql_data:
   public-data:
+    driver: local
   tmp-data:
+    driver: local
   log-data:
+    driver: local
   vendor:

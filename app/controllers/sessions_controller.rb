@@ -11,28 +11,23 @@ class SessionsController < ApplicationController
         params[:session][:remember_me] == '1' ? remember(user) : forget(user)
         redirect_back_or user
       else
-        message  = "Account not activated. "
-        message += "Check your email for the activation link."
-        flash[:warning] = message
-        redirect_to root_url
+        redirect_to root_url, warning: "Account not activated. Check your email for the activation link."
       end
     else
       flash.now[:danger] = "メールアドレスまたはパスワードが違います。"
-      render 'new'
+      render :new
     end
   end
 
   def destroy
     log_out if logged_in?
-    flash[:info] = "ログアウトしました。"
-    redirect_to root_url
+    redirect_to root_url, info: "ログアウトしました。"
   end
 
   def new_guest
     user = User.guest
     user.activate
     log_in user
-    flash[:success] = "ゲストユーザーとしてログインしました。"
-    redirect_to user_url(user)
+    redirect_to user_url(user), success: "ゲストユーザーとしてログインしました。"
   end
 end
