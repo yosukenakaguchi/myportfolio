@@ -3,8 +3,6 @@ class RecipesController < ApplicationController
   before_action :check_valid_user,   only: %i[edit update destroy]
 
   def index
-    @recipes = Recipe.with_attached_image.page(params[:page]).per(15)
-
     if params[:tag_id]
       @tag = Tag.find(params[:tag_id])
       @search_recipes = @tag.recipes.page(params[:page]).per(15)

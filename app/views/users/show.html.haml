@@ -20,15 +20,14 @@
       #item1.tab-pane.fade.show.active{"aria-labelledby" => "item1-tab", :role => "tabpanel"}
         - if @user.recipes.any?
           .card-columns
-            = render partial: 'recipes/index', collection: @user.recipes, as: :recipe
+            = render partial: 'recipes/index', collection: @user.recipes.order(created_at: :desc), as: :recipe
         - else
           .alert-nopost
             %h5 まだ投稿はありません
       #item2.tab-pane.fade{"aria-labelledby" => "item2-tab", :role => "tabpanel"}
         - if @user.favorite_recipes.any?
           .card-columns
-            = render partial: 'recipes/index', collection: @user.favorite_recipes, as: :recipe
+            = render partial: 'recipes/index', collection: @user.favorite_recipes.order(created_at: :desc), as: :recipe
         - else
           .alert-nopost
             %h5 まだお気に入りの投稿はありません
-

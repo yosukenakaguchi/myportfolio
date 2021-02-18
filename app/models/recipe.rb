@@ -16,9 +16,6 @@ class Recipe < ApplicationRecord
 
   has_one_attached :image
 
-  # default_scope は本当に本当に必要なときのみ設定したほうがいいです
-  default_scope -> { order(created_at: :desc) }
-
   def display_image
     image.variant(resize_to_fit: [300, 200])
   end
